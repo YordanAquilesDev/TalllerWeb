@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar Sesión</title>
+        <!-- Enlazamos la hoja de estilos CSS -->
+        <link href="Login.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <!-- Botón para regresar a inicio en la esquina superior -->
+        <a href="../../index.html" class="btn-volver">← Regresar a inicio</a>
+
+        <main class="login-container">
+            <a href="../Negocio/Home.html">Ir a Home</a>
+            <section class="login-card">
+                <form class="login-form">
+                    <h2>Inicia sesión con tu cuenta</h2>
+                    
+                    <div class="input-group">
+                        <label for="username">Nombre Usuario</label>
+                        <input type="text" id="username" name="YordanAqulies" placeholder="Ingresa tu usuario" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+
+                <!-- Enlaces adicionales organizados profesionalmente -->
+                <div class="login-links">
+                    <p>¿Olvidaste tus credenciales? <a href="../RecuperarCuenta/Recuperar.html">Recupéralo aquí</a></p>
+                    <p>¿No tienes una cuenta? <a href="../Registra/Registrar.html">Afíliate</a></p>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

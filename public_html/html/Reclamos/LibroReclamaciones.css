@@ -1,0 +1,163 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 11 set. 2026, 11:19:12 a. m.
+    Author     : Administrador
+*/
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 40px 20px;
+}
+
+/* Botón superior de regresar */
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-volver:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Contenedor principal de la tarjeta de reclamos */
+.reclamo-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.reclamo-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.reclamo-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.reclamo-header h2 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.reclamo-header p {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.4;
+}
+
+/* Secciones de los fieldsets */
+.form-section {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background-color: #f9fafb;
+}
+
+.form-section legend {
+    font-size: 14px;
+    font-weight: bold;
+    color: #667eea;
+    padding: 0 8px;
+}
+
+/* Distribución de inputs */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.row-inputs {
+    display: flex;
+    gap: 15px;
+}
+
+.row-inputs .input-group {
+    flex: 1;
+}
+
+.input-group label {
+    font-size: 12px;
+    color: #555555;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group input, 
+.input-group select, 
+.input-group textarea {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #ffffff;
+}
+
+.input-group input:focus, 
+.input-group select:focus, 
+.input-group textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+/* Botón de envío */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    margin-top: 5px;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+}

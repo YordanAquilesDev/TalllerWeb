@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Estado del Pedido - Granja Pollón</title>
+        <!-- Enlazamos la hoja de estilos CSS aparte -->
+        <link href="css/Pedido.css" rel="stylesheet" type="text/css"/>
+      
+    </head>
+    <body>
+        <!-- Botón para regresar al Home -->
+        <a href="index.html" class="btn-volver">← Regresar al Home</a>
+
+        <main class="pedido-container">
+            <section class="pedido-card">
+                <h2>Seguimiento de tu Pedido</h2>
+                
+                <!-- Sección de Dirección de Entrega -->
+                <div class="seccion-box">
+                    <h3>📍 Dirección de Destino</h3>
+                    <form class="direccion-form">
+                        <div class="input-group">
+                            <label for="direccion">¿A qué dirección le llevamos su pedido?</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Ej. Av. Los Álamos 123, Mz. B" required>
+                        </div>
+                        <button type="button" class="btn-secundario">Actualizar Dirección</button>
+                    </form>
+                </div>
+
+                <!-- Línea de Estado del Pedido (Timeline) -->
+                <div class="seccion-box">
+                    <h3>📦 Estado Actual</h3>
+                    
+                    <div class="timeline">
+                        <!-- Paso 1: Procesando (Activo) -->
+                        <div class="timeline-item activo">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Procesando Pedido</h4>
+                                <p>Su pedido está siendo preparado cuidadosamente para salir el día de mañana a las 3:00 a.m.</p>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2: En camino (Pendiente) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>En Camino</h4>
+                                <p>Su pedido está en ruta hacia la dirección indicada.</p>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3: Finalizado (Pendiente) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Finalizado</h4>
+                                <p>Entregado con éxito. <a href="Historial.html">Ver en el historial</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción Final -->
+                <div class="acciones-box">
+                    <button type="submit" class="btn-principal">Procesar Pedido</button>
+                    <a href="Historial.html" class="btn-finalizar">Finalizar Pedido</a>
+                </div>
+
+            </section>
+        </main>
+    </body>
+</html>

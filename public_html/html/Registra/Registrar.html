@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Afíliate - Crea tu cuenta</title>
+       
+        <link href="Registrar.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <!-- Botón para regresar a inicio en la esquina superior -->
+        <a href="../../index.html" class="btn-volver">← Regresar a inicio</a>
+
+        <main class="registro-container">
+            <section class="registro-card">
+                <form class="registro-form">
+                    <h2>Crea tu cuenta y afíliate</h2>
+                    
+                    <div class="input-group">
+                        <label for="apellido"> Apellidos</label>
+                        <input type="text" id="apellido" name="apellido" placeholder="Ingrese sus apellidos" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="nombre"> Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dni"> DNI</label>
+                        <input type="text" id="dni" name="dni" placeholder="Ingrese su DNI (8 dígitos)" maxlength="8" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="ruc"> RUC (Opcional)</label>
+                        <input type="text" id="ruc" name="ruc" placeholder="Ingrese su RUC (11 dígitos)" maxlength="11">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="telefono">Teléfono / Celular</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de celular" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="correo">Su Correo Electrónico</label>
+                        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Cree una Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Solicitar Cuenta</button>
+                </form>
+
+                <!-- Enlace por si ya tiene cuenta -->
+                <div class="registro-links">
+                    <p>¿Ya tienes una cuenta? <a href="../Login/Login.html">Inicia sesión aquí</a></p>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

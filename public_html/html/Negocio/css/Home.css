@@ -1,0 +1,216 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 11 set. 2026, 11:03:13 a. m.
+    Author     : Administrador
+*/
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333333;
+}
+
+/* Encabezado / Navbar */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 22px;
+    text-decoration: none;
+    color: #333;
+}
+
+.logo span {
+    color: #ff6b6b;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #555555;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: #667eea;
+}
+
+.btn-contacto {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: opacity 0.3s;
+}
+
+.btn-contacto:hover {
+    opacity: 0.9;
+}
+
+/* Sección Hero de Bienvenida */
+.hero-section {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.hero-section h1 {
+    font-size: 32px;
+    color: #222222;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 16px;
+    color: #666666;
+}
+
+/* Sección de Ofertas */
+.ofertas-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 50px;
+}
+
+.ofertas-section h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333333;
+    border-left: 4px solid #667eea;
+    padding-left: 10px;
+}
+
+/* Cuadrícula de Tarjetas */
+.grid-ofertas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card-oferta {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-oferta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-oferta img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: #eaeaea; /* Fondo por si la imagen tarda en cargar */
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.badge {
+    background-color: #eef2ff;
+    color: #667eea;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    width: max-content;
+    margin-bottom: 10px;
+}
+
+.card-body h3 {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.card-body p {
+    font-size: 13px;
+    color: #666666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.precio-box {
+    margin-bottom: 15px;
+}
+
+.precio {
+    font-size: 13px;
+    font-weight: bold;
+    color: #e67e22;
+}
+
+/* Botón de pedido dentro de la tarjeta */
+.btn-pedido {
+    display: block;
+    text-align: center;
+    background-color: #2ecc71;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-pedido:hover {
+    background-color: #27ae60;
+}
+
+/* Pie de página */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #777777;
+    font-size: 13px;
+    border-top: 1px solid #eaeaea;
+    margin-top: 40px;
+}

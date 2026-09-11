@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Libro de Reclamaciones - Granja Pollón</title>
+        <!-- Enlazamos la hoja de estilos CSS aparte -->
+
+        <link href="LibroReclamaciones.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <!-- Botón para regresar a inicio en la esquina superior -->
+
+        <a href="../../index.html" class="btn-volver">← Regresar al Home</a>
+
+        <main class="reclamo-container">
+            <section class="reclamo-card">
+                <div class="reclamo-header">
+                    <h2>Libro de Reclamaciones</h2>
+                    <p>Conforme a la normativa, registre aquí su queja o reclamo sobre nuestros productos (pollos, huevos, entregas, etc.). Le responderemos a la brevedad.</p>
+                </div>
+
+                <form class="reclamo-form">
+
+                    <!-- 1. Identificación del Consumidor -->
+                    <fieldset class="form-section">
+                        <legend>1. Identificación del Cliente</legend>
+
+                        <div class="input-group">
+                            <label for="nombre">Nombres y Apellidos</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre completo" required>
+                        </div>
+
+                        <div class="row-inputs">
+                            <div class="input-group">
+                                <label for="documento">DNI o RUC</label>
+                                <input type="text" id="documento" name="documento" placeholder="Número de documento" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="telefono">Teléfono / Celular</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="Número de contacto" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="correo">Correo Electrónico</label>
+                            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                        </div>
+                    </fieldset>
+
+                    <!-- 2. Identificación del Producto / Pedido -->
+                    <fieldset class="form-section">
+                        <legend>2. Identificación del Pedido o Incidente</legend>
+
+                        <div class="row-inputs">
+                            <div class="input-group">
+                                <label for="nro-pedido">Número de Pedido (Opcional)</label>
+                                <input type="text" id="nro-pedido" name="nro_pedido" placeholder="Ej. #1042">
+                            </div>
+                            <div class="input-group">
+                                <label for="tipo-reclamo">Tipo de Incidente</label>
+                                <select id="tipo-reclamo" name="tipo_reclamo" required>
+                                    <option value="" disabled selected>Seleccione una opción</option>
+                                    <option value="faltante">Faltó cantidad de productos (ej. huevos/pollos)</option>
+                                    <option value="peso">Inconformidad con el peso (muy gordos / delgados)</option>
+                                    <option value="retraso">Demora en la entrega o ruta</option>
+                                    <option value="otro">Otro inconveniente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- 3. Detalle del Reclamo -->
+                    <fieldset class="form-section">
+                        <legend>3. Detalle del Reclamo</legend>
+
+                        <div class="input-group">
+                            <label for="detalle">Explíquenos detalladamente qué sucedió</label>
+                            <textarea id="detalle" name="detalle" rows="4" placeholder="Ej. Pedí 100 jabas de huevos y llegaron 95, o los pollos vinieron con mayor peso del solicitado..." required></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="pedido-cliente">¿Qué solución espera de parte de la granja?</label>
+                            <textarea id="pedido-cliente" name="pedido_cliente" rows="2" placeholder="Ej. Reposición de producto o devolución parcial..." required></textarea>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn-submit">Enviar Reclamo</button>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>

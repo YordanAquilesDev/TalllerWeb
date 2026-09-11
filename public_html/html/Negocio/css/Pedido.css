@@ -1,0 +1,215 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 11 set. 2026, 11:14:09 a. m.
+    Author     : Administrador
+*/
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 40px 20px;
+}
+
+/* Botón superior de regresar */
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-volver:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Contenedor principal de la tarjeta */
+.pedido-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+.pedido-card {
+    background-color: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.pedido-card > h2 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Cajas de secciones internas */
+.seccion-box {
+    margin-bottom: 25px;
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #eaeaea;
+}
+
+.seccion-box h3 {
+    font-size: 16px;
+    color: #444444;
+    margin-bottom: 15px;
+}
+
+/* Formulario de dirección */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    font-size: 13px;
+    color: #555555;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.input-group input {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* Estilo para Línea de Tiempo (Timeline de estados) */
+.timeline {
+    position: relative;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+    margin-left: 10px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -27px;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 2px solid #ffffff;
+}
+
+/* Estado Activo (Procesando) */
+.timeline-item.activo .timeline-dot {
+    background-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.timeline-item.activo h4 {
+    color: #667eea;
+}
+
+.timeline-content h4 {
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 4px;
+}
+
+.timeline-content p {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.4;
+}
+
+.timeline-content a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.timeline-content a:hover {
+    text-decoration: underline;
+}
+
+/* Botones de acción */
+.acciones-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-principal, .btn-secundario, .btn-finalizar {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    transition: opacity 0.3s;
+}
+
+.btn-principal {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    flex: 1;
+}
+
+.btn-secundario {
+    background-color: #e2e8f0;
+    color: #333333;
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.btn-finalizar {
+    background-color: #e74c3c;
+    color: white;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-principal:hover, .btn-secundario:hover, .btn-finalizar:hover {
+    opacity: 0.9;
+}
