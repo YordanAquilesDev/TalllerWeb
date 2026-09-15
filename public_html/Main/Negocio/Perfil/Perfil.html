@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Granja Pollón</title>
+    <link href="Perfil.css" rel="stylesheet" type="text/css"/>
+    <script src="Perfil.js" defer></script>
+</head>
+<body class="dashboard-body">
+
+    <!-- HEADER NAVEGACIÓN -->
+    <header class="header-dashboard">
+        <div class="container header-content">
+            <a href="Home.html" class="logo"><span>Granja</span> <strong>Pollón</strong> <span class="badge-b2b">B2B</span></a>
+            <nav class="nav-dashboard">
+                <a href="Home.html" class="nav-link">Catálogo y Pizarra</a>
+                <a href="Historial.html" class="nav-link">Historial Compras</a>
+                <a href="Perfil.html" class="nav-link active">Mi Perfil</a>
+                <a href="Contactar.html" class="btn-contacto">Contactar Asesor</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PERFIL -->
+    <main class="container profile-container">
+        <!-- Sidebar de usuario -->
+        <aside class="profile-sidebar">
+            <div class="profile-avatar-box">
+                <div class="avatar-placeholder">DAL</div>
+                <h3>Distribuidora Avícola Lima</h3>
+                <span class="user-badge">Cliente Mayorista Plus</span>
+            </div>
+            <nav class="profile-menu">
+                <a href="#datos" class="menu-item active">Datos Empresa / Personales</a>
+                <a href="#direcciones" class="menu-item">Direcciones de Envíos</a>
+                <a href="#credito" class="menu-item">Estado Financiero y Crédito</a>
+            </nav>
+        </aside>
+
+        <!-- Formularios y Secciones -->
+        <section class="profile-content">
+            
+            <!-- DATOS GENERALES -->
+            <div class="card-section" id="datos">
+                <h2>Información de la Cuenta</h2>
+                <form id="form-datos">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="razon-social">Razón Social / Nombre Completo</label>
+                            <input type="text" id="razon-social" value="Distribuidora Avícola Lima S.A.C.">
+                        </div>
+                        <div class="form-group">
+                            <label for="ruc">RUC / DNI</label>
+                            <input type="text" id="ruc" value="20601234567" readonly disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico</label>
+                            <input type="email" id="correo" value="ventas@avicolalima.pe">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono / WhatsApp de Pedidos</label>
+                            <input type="tel" id="telefono" value="+51 987 654 321">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                </form>
+            </div>
+
+            <!-- DIRECCIONES DE ENTREGA -->
+            <div class="card-section" id="direcciones">
+                <h2>Puntos de Despacho (Descarga)</h2>
+                <div class="address-list">
+                    <div class="address-item">
+                        <div>
+                            <strong>Camal Municipal Santa Anita - Stand 14</strong>
+                            <p>Av. Rosa Toro 123, Santa Anita, Lima</p>
+                        </div>
+                        <span class="tag-primary">Principal</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary">+ Agregar Nueva Dirección</button>
+            </div>
+
+            <!-- RESUMEN CREDITICIO -->
+            <div class="card-section" id="credito">
+                <h2>Línea de Crédito y Facturación</h2>
+                <div class="kpi-financial">
+                    <div class="fin-box">
+                        <span>Línea Aprobada</span>
+                        <strong>S/ 50,000.00</strong>
+                    </div>
+                    <div class="fin-box">
+                        <span>Crédito Utilizado</span>
+                        <strong class="text-alert">S/ 12,400.00</strong>
+                    </div>
+                    <div class="fin-box">
+                        <span>Disponible para Pedidos</span>
+                        <strong class="text-success">S/ 37,600.00</strong>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

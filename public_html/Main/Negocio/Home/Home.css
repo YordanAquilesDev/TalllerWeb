@@ -1,0 +1,384 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 15 set. 2026, 12:16:08 p. m.
+    Author     : Administrador
+*/
+
+:root {
+    --primary-color: #d92323;
+    --primary-hover: #b51a1a;
+    --bg-dashboard: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-dark: #1a202c;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --success-color: #276749;
+    --success-bg: #c6f6d5;
+}
+
+body.dashboard-body {
+    background-color: var(--bg-dashboard);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Dashboard */
+.header-dashboard {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo span { color: var(--primary-color); }
+
+.badge-b2b {
+    background: var(--text-dark);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.nav-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color);
+}
+
+.btn-contacto {
+    background: #edf2f7;
+    color: var(--text-dark);
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-logout:hover {
+    background: #fff5f5;
+    color: var(--primary-color);
+}
+
+/* KPIs Section */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.kpi-icon {
+    font-size: 1.8rem;
+    background: #f7fafc;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.kpi-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.kpi-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.kpi-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.valor-destacado {
+    color: var(--primary-color);
+}
+
+/* Hero & Filtros */
+.hero-dashboard {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.hero-text h1 {
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+}
+
+.hero-text p {
+    margin: 0 0 20px 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.filter-bar input, .filter-bar select {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.filter-bar input {
+    flex: 1;
+}
+
+/* Grilla de Ofertas */
+.grid-ofertas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card-oferta {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-oferta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+.card-header {
+    position: relative;
+    height: 180px;
+    background: #edf2f7;
+}
+
+.card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-popular { background: #feebc8; color: #744210; }
+.badge-ganancia { background: #ebf8ff; color: #2b6cb0; }
+.badge-fresco { background: var(--success-bg); color: var(--success-color); }
+.badge-mayorista { background: #faf5ff; color: #6b46c1; }
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
+}
+
+.desc-producto {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.specs-grid {
+    background: #f7fafc;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 15px;
+}
+
+.precio-box {
+    margin-top: auto;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.precio-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.precio-monto {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.btn-pedido {
+    background: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-pedido:hover {
+    background: var(--primary-hover);
+}
+
+/* Footer Dashboard */
+.footer-dashboard {
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    padding: 20px 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+        gap: 15px;
+    }
+    .filter-bar {
+        flex-direction: column;
+    }
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

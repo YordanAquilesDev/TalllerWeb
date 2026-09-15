@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Clientes - Granja Pollón</title>
+    <link href="Home.css" rel="stylesheet" type="text/css">
+    <script src="Home.js" defer></script>
+</head>
+<body class="dashboard-body">
+
+    <!-- ================= HEADER PRIVADO ================= -->
+    <header class="header-dashboard">
+        <div class="container header-content">
+            <a href="Home.html" class="logo"><span>Granja</span> <strong>Pollón</strong> <span class="badge-b2b">B2B</span></a>
+            
+            <nav class="nav-dashboard">
+                <a href="Home.html" class="nav-link active">Catálogo y Pizarra</a>
+                <a href="Historial.html" class="nav-link">Historial Compras</a>
+                <a href="../Perfil/Perfil.html" class="nav-link">Mi Perfil</a>
+               
+                <a href="Contactar.html" class="btn-contacto">Contactar Asesor</a>
+            </nav>
+
+            <div class="user-menu">
+                <div class="user-info">
+                    <span class="user-name">Distribuidora Avícola Lima</span>
+                    <span class="user-role">RUC: 20601234567</span>
+                </div>
+                <button class="btn-logout" id="btn-logout" title="Cerrar Sesión">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= CONTENIDO PRINCIPAL ================= -->
+    <main class="container main-content">
+        
+        <!-- RESUMEN DE ESTADO / KPIs DEL CLIENTE -->
+        <section class="kpi-grid">
+            <article class="kpi-card">
+                <div class="kpi-icon">📦</div>
+                <div class="kpi-data">
+                    <span class="kpi-label">Pedidos en Tránsito</span>
+                    <span class="kpi-value">1 Despacho (Hoy)</span>
+                </div>
+            </article>
+
+            <article class="kpi-card">
+                <div class="kpi-icon">💰</div>
+                <div class="kpi-data">
+                    <span class="kpi-label">Línea de Crédito</span>
+                    <span class="kpi-value">S/ 15,000.00</span>
+                </div>
+            </article>
+
+            <article class="kpi-card">
+                <div class="kpi-icon">⚖️</div>
+                <div class="kpi-data">
+                    <span class="kpi-label">Precio Pollo Vivo Hoy</span>
+                    <span class="kpi-value valor-destacado">S/ 6.80 / kg</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- BANNER DE BIENVENIDA Y BUSCADOR -->
+        <section class="hero-dashboard">
+            <div class="hero-text">
+                <h1>Pizarra de Precios y Lotes Disponibles</h1>
+                <p>Precios de granja en tiempo real actualizados para su cuenta mayorista.</p>
+            </div>
+            
+            <div class="filter-bar">
+                <input type="text" id="input-buscar" placeholder="Buscar por raza, lote o producto...">
+                <select id="select-categoria">
+                    <option value="todos">Todas las categorías</option>
+                    <option value="pollo-vivo">Pollo en Pie (Vivo)</option>
+                    <option value="pollo-beneficiado">Pollo Beneficiado</option>
+                    <option value="huevos">Huevos por Jaba</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- GRILLA DE PRODUCTOS / OFERTAS -->
+        <section class="ofertas-section">
+            <div class="grid-ofertas" id="grid-ofertas">
+                
+                <!-- Oferta 1 -->
+                <article class="card-oferta" data-categoria="pollo-vivo">
+                    <div class="card-header">
+                        <span class="badge badge-popular">Lote Popular</span>
+                        <img src="image/pollo_cobb_500.png" alt="Pollos Cobb 500" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <h3>1,000 Pollos Cobb 500 (En Pie)</h3>
+                        <p class="desc-producto">Peso promedio de 2.4 kg a 3.0 kg. Alta conversión de carne, ideal para camal.</p>
+                        
+                        <div class="specs-grid">
+                            <span><strong>Rendimiento:</strong> Pechuga Alta</span>
+                            <span><strong>Disponibilidad:</strong> Inmediata</span>
+                        </div>
+
+                        <div class="precio-box">
+                            <span class="precio-label">Precio Cliente Frecuente</span>
+                            <span class="precio-monto">Cotizar por Volumen</span>
+                        </div>
+
+                        <a href="Pedido.html?lote=cobb500" class="btn-pedido">
+                            <span>Solicitar Lote</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Oferta 2 -->
+                <article class="card-oferta" data-categoria="pollo-vivo">
+                    <div class="card-header">
+                        <span class="badge badge-ganancia">Alta Ganancia</span>
+                        <img src="image/pollo_ross.png" alt="Pollos Ross Broiler" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <h3>500 Pollos Ross Broiler</h3>
+                        <p class="desc-producto">Excelente conformación en canal. Descuento aplicable en compras mayores a 2 lotes.</p>
+                        
+                        <div class="specs-grid">
+                            <span><strong>Rendimiento:</strong> Uniforme</span>
+                            <span><strong>Min. Pedido:</strong> 500 Aves</span>
+                        </div>
+
+                        <div class="precio-box">
+                            <span class="precio-label">Promoción por Volumen</span>
+                            <span class="precio-monto">Descuento del 3%</span>
+                        </div>
+
+                        <a href="Pedido.html?lote=ross308" class="btn-pedido">
+                            <span>Solicitar Lote</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Oferta 3 -->
+                <article class="card-oferta" data-categoria="huevos">
+                    <div class="card-header">
+                        <span class="badge badge-fresco">Fresco del Día</span>
+                        <img src="image/huevo_pardos.png" alt="Huevos Pardos" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <h3>100 Jabas de Huevo Pardo</h3>
+                        <p class="desc-producto">Huevo seleccionado de granja. Calibre Extra y Especial en cáscara resistente.</p>
+                        
+                        <div class="specs-grid">
+                            <span><strong>Empaque:</strong> Jaba de 360 und</span>
+                            <span><strong>Calibre:</strong> 63g - 68g</span>
+                        </div>
+
+                        <div class="precio-box">
+                            <span class="precio-label">Pizarra del Día</span>
+                            <span class="precio-monto">S/ 145.00 / Jaba</span>
+                        </div>
+
+                        <a href="Pedido.html?lote=huevo-pardo" class="btn-pedido">
+                            <span>Solicitar Lote</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Oferta 4 -->
+                <article class="card-oferta" data-categoria="huevos">
+                    <div class="card-header">
+                        <span class="badge badge-mayorista">Por Mayor</span>
+                        <img src="image/huevo_rosados.png" alt="Huevos Rosados" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <h3>200 Jabas de Huevo Rosado</h3>
+                        <p class="desc-producto">Lote especial para gran distribución comercial en mercados y supermercados.</p>
+                        
+                        <div class="specs-grid">
+                            <span><strong>Empaque:</strong> Jaba de 360 und</span>
+                            <span><strong>Calibre:</strong> Especial</span>
+                        </div>
+
+                        <div class="precio-box">
+                            <span class="precio-label">Precio Distribuidor</span>
+                            <span class="precio-monto">S/ 140.00 / Jaba</span>
+                        </div>
+
+                        <a href="Pedido.html?lote=huevo-rosado" class="btn-pedido">
+                            <span>Solicitar Lote</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= PIE DE PÁGINA ================= -->
+    <footer class="footer-dashboard">
+        <div class="container footer-content">
+            <p>© 2026 Granja Pollón. Plataforma Mayorista B2B.</p>
+            <div class="footer-links">
+                <a href="#">Soporte Técnico</a>
+                <a href="#">Términos de Despacho</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 15 set. 2026, 12:20:19 p. m.
+    Author     : Administrador
+*/
+
+:root {
+    --primary-color: #d92323;
+    --primary-hover: #b51a1a;
+    --bg-dashboard: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-dark: #1a202c;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+}
+
+body.dashboard-body {
+    background-color: var(--bg-dashboard);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Header reutilizado */
+.header-dashboard { background: #fff; border-bottom: 1px solid var(--border-color); }
+.header-content { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.logo { text-decoration: none; font-size: 1.4rem; color: var(--text-dark); }
+.logo span { color: var(--primary-color); }
+.nav-dashboard { display: flex; gap: 20px; align-items: center; }
+.nav-link { text-decoration: none; color: var(--text-muted); font-weight: 600; }
+.nav-link.active { color: var(--primary-color); }
+
+/* Layout Perfil */
+.profile-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/* Sidebar */
+.profile-sidebar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.profile-avatar-box {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.avatar-placeholder {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+}
+
+.user-badge {
+    background: #ebf8ff;
+    color: #2b6cb0;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.profile-menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.menu-item {
+    padding: 12px 10px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.menu-item.active, .menu-item:hover {
+    background: #edf2f7;
+    color: var(--primary-color);
+}
+
+/* Formulario y Cards */
+.card-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card-section h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.form-group input:disabled {
+    background: #edf2f7;
+    cursor: not-allowed;
+}
+
+.btn-guardar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Financiero */
+.kpi-financial {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.fin-box {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.fin-box span { font-size: 0.8rem; color: var(--text-muted); }
+.fin-box strong { font-size: 1.1rem; }
+.text-success { color: #276749; }
+.text-alert { color: #c53030; }
+
+@media (max-width: 768px) {
+    .profile-container { grid-template-columns: 1fr; }
+    .form-grid, .kpi-financial { grid-template-columns: 1fr; }
+}
