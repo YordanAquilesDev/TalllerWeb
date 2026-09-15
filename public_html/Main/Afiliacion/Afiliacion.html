@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granja Pollón - Solicitud de Cuenta Mayorista</title>
+    <link href="Afiliacion.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="registro-body">
+
+    <!-- Enlace superior para regresar -->
+    <header class="top-nav">
+        <a href="../../index.html" class="btn-volver">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Volver al Inicio
+        </a>
+    </header>
+
+    <main class="registro-container">
+        <section class="registro-card">
+            
+            <div class="registro-header">
+                <h2>Solicitar Cuenta Mayorista</h2>
+                <p>Complete el formulario para acceder a la pizarra de precios en tiempo real y realizar sus pedidos.</p>
+            </div>
+
+            <form class="registro-form" id="form-afiliacion" method="POST" action="/api/afiliacion">
+                
+                <!-- SECCIÓN 1: DATOS PERSONALES -->
+                <fieldset class="form-section">
+                    <legend>1. Datos del Representante</legend>
+                    
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="nombre">Nombres <span class="requerido">*</span></label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Carlos" required autocomplete="given-name">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="apellido">Apellidos <span class="requerido">*</span></label>
+                            <input type="text" id="apellido" name="apellido" placeholder="Ej. Pérez Gómez" required autocomplete="family-name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="dni">DNI <span class="requerido">*</span></label>
+                            <input type="text" id="dni" name="dni" placeholder="8 dígitos" maxlength="8" pattern="[0-9]{8}" title="El DNI debe contener exactamente 8 números" required autocomplete="off">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="telefono">Teléfono / Celular <span class="requerido">*</span></label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Ej. 987654321" pattern="[0-9]{9}" title="Ingrese un número de celular válido de 9 dígitos" required autocomplete="tel">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- SECCIÓN 2: INFORMACIÓN FISCAL Y DEL NEGOCIO -->
+                <fieldset class="form-section">
+                    <legend>2. Datos Comerciales</legend>
+                    
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="tipo_documento">Tipo de Contribuyente</label>
+                            <select id="tipo_documento" name="tipo_documento">
+                                <option value="DNI">Persona Natural (Sin RUC)</option>
+                                <option value="RUC10">Persona Natural con RUC (RUC 10)</option>
+                                <option value="RUC20" selected>Empresa / Jurídica (RUC 20)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="ruc">RUC <span class="opcional">(Opcional / Recomendado)</span></label>
+                            <input type="text" id="ruc" name="ruc" placeholder="11 dígitos (Ej. 20123456789)" maxlength="11" pattern="[0-9]{11}" title="El RUC debe tener 11 dígitos numéricos">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="razon_social">Nombre del Negocio / Razón Social</label>
+                        <input type="text" id="razon_social" name="razon_social" placeholder="Ej. Pollería El Buen Sabor S.A.C.">
+                    </div>
+                </fieldset>
+
+                <!-- SECCIÓN 3: ACCESO A LA PLATAFORMA -->
+                <fieldset class="form-section">
+                    <legend>3. Credenciales de Acceso</legend>
+
+                    <div class="input-group">
+                        <label for="correo">Correo Electrónico <span class="requerido">*</span></label>
+                        <input type="email" id="correo" name="correo" placeholder="ejemplo@negocio.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="password">Contraseña <span class="requerido">*</span></label>
+                            <input type="password" id="password" name="password" minlength="8" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="password_confirm">Confirmar Contraseña <span class="requerido">*</span></label>
+                            <input type="password" id="password_confirm" name="password_confirm" minlength="8" placeholder="Repita la contraseña" required>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Términos y Condiciones -->
+                <div class="form-terms">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terminos" name="terminos" required>
+                        <span class="checkmark"></span>
+                        Acepto los <a href="#" target="_blank">Términos del Servicio</a> y la <a href="#" target="_blank">Política de Privacidad</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Solicitud de Afiliación</button>
+            </form>
+
+            <div class="registro-links">
+                <p>¿Ya tienes una cuenta aprobada? <a href="../Login/Login.html">Inicia sesión aquí</a></p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -749,3 +749,78 @@ body {
     position: relative;
     z-index: 2; /* Asegura que el contenido esté por encima del fondo */
 }
+
+/* Banner Flotante tipo Anuncio Modal/Notificación */
+.banner-bienvenida {
+    position: fixed;
+    top: 70px; /* Posicionado debajo de la barra superior/header */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+}
+
+/* Estado al ocultar el banner */
+.banner-bienvenida.ocultar-banner {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+    visibility: hidden;
+}
+
+/* ================= BANNER BIENVENIDA CORPORATIVO ================= */
+.banner-bienvenida {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    padding: 30px 0;
+    border-bottom: 3px solid #eab308; /* Color dorado/amarillo institucional */
+}
+
+.bienvenida-box {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.bienvenida-badge {
+    display: inline-block;
+    background-color: rgba(234, 179, 8, 0.2);
+    color: #fde047;
+    border: 1px solid #eab308;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.bienvenida-box h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.bienvenida-box p {
+    font-size: 1rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .bienvenida-box h2 {
+        font-size: 1.25rem;
+    }
+    .bienvenida-box p {
+        font-size: 0.9rem;
+    }
+}

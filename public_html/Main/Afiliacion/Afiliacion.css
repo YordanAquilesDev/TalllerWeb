@@ -1,0 +1,188 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 15 set. 2026, 12:05:18 p. m.
+    Author     : Administrador
+*/
+/* Base y Fondo */
+:root {
+    --primary-color: #d92323;
+    --primary-hover: #b51a1a;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --bg-gray: #f7fafc;
+    --border-color: #e2e8f0;
+}
+
+body.registro-body {
+    background-color: var(--bg-gray);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px 0;
+}
+
+.top-nav {
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+    padding: 0 20px;
+}
+
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.btn-volver:hover {
+    color: var(--primary-color);
+}
+
+/* Tarjeta Principal */
+.registro-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.registro-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 750px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 35px 40px;
+    border: 1px solid var(--border-color);
+}
+
+.registro-header {
+    border-bottom: 2px solid var(--bg-gray);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.registro-header h2 {
+    margin: 0 0 8px 0;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+}
+
+.registro-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Secciones Internas del Formulario */
+.form-section {
+    border: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+.form-section legend {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.requerido {
+    color: var(--primary-color);
+}
+
+.opcional {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.input-group input, 
+.input-group select {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.12);
+}
+
+/* Checkbox y Botones */
+.form-terms {
+    margin: 20px 0;
+    font-size: 0.9rem;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+.registro-links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.registro-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Adaptación Móvil */
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .registro-card {
+        padding: 20px;
+    }
+}
