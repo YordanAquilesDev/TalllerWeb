@@ -6,4 +6,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : 15 set. 2026, 12:21:52 p. m.
     Author     : Administrador
 */
+.tikker-wraper{
+    
+}
+.ticker{
+    color:#fff;
+    padding-left: 100%;
+    white-space: nowrap;
+    animation: mover 7s linear infinite;
+}
+.ticker p{
+    padding: 5px opx;
+}
 
+@KeyFrames mover{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+       transform: translateX(-125%);
+    }
+}
+
+
+
+ .fadeInDown {
+ 
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  }
+  
+  
+
+  @keyframes fadeInDown {
+  0% {
+  opacity: 0;
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+  }
+  100% {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+  }
+ } 
