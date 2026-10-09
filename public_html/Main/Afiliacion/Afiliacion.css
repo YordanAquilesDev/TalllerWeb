@@ -1,188 +1,356 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
-*/
-/* 
-    Created on : 15 set. 2026, 12:05:18 p. m.
-    Author     : Administrador
-*/
-/* Base y Fondo */
+/* ============================================================
+   GRANJA POLLÓN — Afiliacion.css
+   Solicitud de cuenta mayorista (v2.0)
+   ============================================================ */
 :root {
-    --primary-color: #d92323;
-    --primary-hover: #b51a1a;
-    --text-main: #2d3748;
-    --text-muted: #718096;
-    --bg-gray: #f7fafc;
-    --border-color: #e2e8f0;
+    --navy-900: #071938;
+    --navy-800: #0F2C59;
+    --navy-700: #1A407D;
+    --navy-100: #EAF0F8;
+    --red: #D80032;
+    --red-dark: #B00028;
+    --red-soft: #FFF0F2;
+    --gold: #F5B301;
+
+    --text-main: #16233B;
+    --text-muted: #5A6A85;
+    --bg-gray: #F7F9FC;
+    --border-color: #E2E8F0;
+    --error-color: #D80032;
+    --success-color: #1F9D57;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+* { box-sizing: border-box; }
 
 body.registro-body {
-    background-color: var(--bg-gray);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:
+        radial-gradient(700px 400px at 85% -10%, rgba(245, 179, 1, 0.10), transparent 60%),
+        linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 60%, var(--navy-700) 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     color: var(--text-main);
     margin: 0;
-    padding: 20px 0;
+    padding: 22px 0 60px;
+    min-height: 100vh;
 }
 
-.top-nav {
-    max-width: 800px;
-    margin: 0 auto 15px auto;
-    padding: 0 20px;
-}
+.top-nav { max-width: 780px; margin: 0 auto 16px auto; padding: 0 20px; }
 
 .btn-volver {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.2s;
+    font-size: 0.92rem;
+    transition: color 0.2s, transform 0.3s var(--ease);
 }
+.btn-volver:hover { color: var(--gold); transform: translateX(-3px); }
+.btn-volver:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 
-.btn-volver:hover {
-    color: var(--primary-color);
-}
-
-/* Tarjeta Principal */
-.registro-container {
-    display: flex;
-    justify-content: center;
-    padding: 0 15px;
-}
+/* ---------- tarjeta ---------- */
+.registro-container { display: flex; justify-content: center; padding: 0 16px; }
 
 .registro-card {
     background: #ffffff;
     width: 100%;
-    max-width: 750px;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    padding: 35px 40px;
+    max-width: 760px;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    padding: 38px 42px 32px;
     border: 1px solid var(--border-color);
+    border-top: 4px solid var(--red);
+    animation: cardEntrada 0.55s var(--ease) forwards;
+}
+@keyframes cardEntrada {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.registro-header {
-    border-bottom: 2px solid var(--bg-gray);
-    padding-bottom: 15px;
-    margin-bottom: 25px;
+/* ---------- marca ---------- */
+.brand-info { text-align: center; margin-bottom: 22px; }
+
+.logo-mark {
+    width: 52px; height: 52px;
+    margin: 0 auto 12px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+    display: grid; place-items: center;
+    box-shadow: 0 8px 18px rgba(15, 44, 89, 0.3);
+}
+.brand-info .logo { font-family: 'Sora', sans-serif; font-size: 1.5rem; color: var(--navy-800); margin-bottom: 6px; }
+.brand-info .logo strong { color: var(--red); font-weight: 800; }
+.brand-info h1 { font-family: 'Sora', sans-serif; font-size: 1.25rem; margin: 4px 0; color: var(--text-main); }
+.brand-info p { font-size: 0.88rem; color: var(--text-muted); margin: 4px auto 0; max-width: 520px; }
+
+/* ---------- barra de progreso ---------- */
+.progress-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.progress-track { flex: 1; height: 8px; background: var(--navy-100); border-radius: 999px; overflow: hidden; }
+.progress-bar {
+    height: 100%; width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transition: width 0.6s var(--ease);
+}
+.progress-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+
+/* ---------- alertas ---------- */
+.registro-alert {
+    display: none;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 0.87rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    line-height: 1.45;
+}
+.registro-alert.error {
+    display: block;
+    background: var(--red-soft);
+    color: var(--error-color);
+    border: 1px solid #F5C6CE;
+    animation: alertIn 0.35s var(--ease);
+}
+@keyframes alertIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.registro-header h2 {
-    margin: 0 0 8px 0;
-    color: var(--primary-color);
-    font-size: 1.6rem;
-}
-
-.registro-header p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-
-/* Secciones Internas del Formulario */
-.form-section {
-    border: none;
-    padding: 0;
-    margin: 0 0 25px 0;
-}
+/* ---------- secciones ---------- */
+.form-section { border: none; padding: 0; margin: 0 0 26px 0; }
 
 .form-section legend {
-    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.02rem;
     font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 15px;
+    color: var(--navy-800);
+    margin-bottom: 16px;
     width: 100%;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+}
+.paso-num {
+    display: grid; place-items: center;
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--red), #E83A55);
+    color: #fff; font-size: 0.85rem; font-weight: 800;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(216, 0, 50, 0.3);
+    flex-shrink: 0;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
+.input-group { display: flex; flex-direction: column; margin-bottom: 15px; }
 
-.input-group label {
-    font-size: 0.88rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
+.input-group label { font-size: 0.87rem; font-weight: 600; margin-bottom: 7px; }
 
-.requerido {
-    color: var(--primary-color);
-}
+.requerido { color: var(--red); }
+.opcional { font-size: 0.78rem; color: var(--text-muted); font-weight: normal; }
 
-.opcional {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-weight: normal;
-}
-
-.input-group input, 
+.input-group input,
 .input-group select {
-    padding: 10px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
     font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: #fff;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
+.input-group input::placeholder { color: #A6B2C4; }
 
-.input-group input:focus, 
+.input-group input:focus,
 .input-group select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(217, 35, 35, 0.12);
+    border-color: var(--navy-800);
+    box-shadow: 0 0 0 3px rgba(15, 44, 89, 0.10);
+}
+.input-group input.input-error { border-color: var(--error-color); }
+.input-group input.input-error:focus { box-shadow: 0 0 0 3px rgba(216, 0, 50, 0.10); }
+
+.field-error {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--error-color);
+    margin-top: 5px;
+    min-height: 1em;
 }
 
-/* Checkbox y Botones */
-.form-terms {
-    margin: 20px 0;
-    font-size: 0.9rem;
+/* select con flecha personalizada */
+.select-wrapper { position: relative; display: flex; align-items: center; }
+.select-wrapper select { width: 100%; appearance: none; padding-right: 40px; cursor: pointer; }
+.select-arrow {
+    position: absolute; right: 14px;
+    color: var(--text-muted); pointer-events: none;
 }
 
+/* ---------- input con botón ojo ---------- */
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-wrapper input { width: 100%; }
+.input-wrapper input.has-toggle { padding-right: 46px; }
+
+.btn-toggle-pw {
+    position: absolute; right: 8px;
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    background: none; border: none; border-radius: 8px;
+    color: var(--text-muted); cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+.btn-toggle-pw:hover { color: var(--navy-800); background: var(--navy-100); }
+.btn-toggle-pw:focus-visible { outline: 2px solid var(--navy-800); outline-offset: 1px; }
+
+/* ---------- medidor de fortaleza ---------- */
+.pw-strength { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.pw-segments { display: flex; gap: 4px; flex: 1; }
+.pw-segments span {
+    height: 5px; flex: 1;
+    background: var(--border-color);
+    border-radius: 999px;
+    transition: background 0.3s;
+}
+.pw-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); min-width: 52px; text-align: right; }
+.pw-strength[data-nivel="1"] .pw-segments span:nth-child(1) { background: var(--red); }
+.pw-strength[data-nivel="2"] .pw-segments span:nth-child(-n+2) { background: var(--gold); }
+.pw-strength[data-nivel="3"] .pw-segments span { background: var(--success-color); }
+.pw-strength[data-nivel="1"] .pw-label { color: var(--red); }
+.pw-strength[data-nivel="2"] .pw-label { color: #B07E00; }
+.pw-strength[data-nivel="3"] .pw-label { color: var(--success-color); }
+
+/* ---------- checkbox términos ---------- */
+.form-terms { margin: 22px 0; font-size: 0.88rem; }
+
+.checkbox-container {
+    display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer; color: var(--text-muted);
+    user-select: none; line-height: 1.5;
+}
+.checkbox-container input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.checkmark {
+    width: 19px; height: 19px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    background: #fff;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s var(--ease);
+    flex-shrink: 0; margin-top: 1px;
+}
+.checkmark svg { width: 12px; height: 12px; color: #fff; opacity: 0; transform: scale(0.4); transition: opacity 0.2s, transform 0.25s var(--ease); }
+
+.checkbox-container:hover .checkmark { border-color: var(--navy-800); }
+.checkbox-container input:checked + .checkmark { background: var(--red); border-color: var(--red); }
+.checkbox-container input:checked + .checkmark svg { opacity: 1; transform: scale(1); }
+.checkbox-container input:focus-visible + .checkmark { outline: 2px solid var(--navy-800); outline-offset: 2px; }
+.checkbox-container:active .checkmark { transform: scale(0.9); }
+
+.checkbox-container a { color: var(--red); font-weight: 600; }
+.checkbox-container a:hover { text-decoration: underline; }
+
+/* ---------- botón enviar ---------- */
 .btn-submit {
     width: 100%;
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--red), #E83A55);
     color: #fff;
     border: none;
     padding: 14px;
+    font-family: 'Sora', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(216, 0, 50, 0.30);
+    transition: background 0.2s, transform 0.15s var(--ease), box-shadow 0.2s;
+}
+.btn-submit:hover { background: linear-gradient(135deg, var(--red-dark), var(--red)); transform: translateY(-2px); box-shadow: 0 12px 26px rgba(216, 0, 50, 0.38); }
+.btn-submit:active { transform: translateY(0) scale(0.99); }
+.btn-submit:disabled { opacity: 0.8; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-submit:focus-visible { outline: 2px solid var(--navy-800); outline-offset: 2px; }
+
+.btn-spinner {
+    width: 17px; height: 17px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* shake de error */
+.shake { animation: agitar 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+@keyframes agitar {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
-.btn-submit:hover {
-    background-color: var(--primary-hover);
-}
+/* ---------- panel de éxito ---------- */
+.registro-exito { text-align: center; padding: 30px 10px 20px; animation: cardEntrada 0.5s var(--ease); }
 
-.registro-links {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+.exito-icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #EEF9F2;
+    border: 2px solid #BEE8CD;
+    color: var(--success-color);
+    display: grid; place-items: center;
+    animation: exitoPop 0.55s var(--ease) both 0.15s;
 }
+@keyframes exitoPop {
+    0% { transform: scale(0.4); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.registro-exito h2 { font-family: 'Sora', sans-serif; color: var(--navy-800); margin-bottom: 10px; }
+.registro-exito p { color: var(--text-muted); font-size: 0.94rem; max-width: 460px; margin: 0 auto 24px; }
 
-.registro-links a {
-    color: var(--primary-color);
+.exito-acciones { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-secundario {
+    display: inline-flex; align-items: center;
+    padding: 12px 26px;
+    background: var(--navy-800); color: #fff;
+    font-family: 'Sora', sans-serif; font-weight: 600; font-size: 0.93rem;
+    border-radius: 999px; text-decoration: none;
+    transition: background 0.2s, transform 0.3s var(--ease);
+}
+.btn-secundario:hover { background: var(--navy-900); transform: translateY(-2px); }
+.btn-enlace {
+    display: inline-flex; align-items: center;
+    padding: 12px 10px;
+    color: var(--red); font-weight: 600; font-size: 0.93rem;
     text-decoration: none;
-    font-weight: 600;
+}
+.btn-enlace:hover { text-decoration: underline; }
+
+/* ---------- pie ---------- */
+.registro-links { text-align: center; margin-top: 22px; font-size: 0.88rem; color: var(--text-muted); }
+.registro-links a { color: var(--red); text-decoration: none; font-weight: 600; }
+.registro-links a:hover { text-decoration: underline; }
+
+/* ---------- accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
-/* Adaptación Móvil */
-@media (max-width: 600px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    .registro-card {
-        padding: 20px;
-    }
+/* ---------- móvil ---------- */
+@media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .registro-card { padding: 28px 20px 24px; }
+    .top-nav { padding: 0 16px; }
+    .exito-acciones { flex-direction: column; align-items: center; }
 }

@@ -1,66 +1,161 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
+/* ============================================================
+   GRANJA POLLÓN — Login.js
+   Lógica del portal de clientes mayoristas
+   ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
+    'use strict';
+
+    /* ---------- referencias ---------- */
+    const loginForm   = document.getElementById('login-form');
+    const loginCard   = document.getElementById('login-card');
+    const loginAlert  = document.getElementById('login-alert');
+    const correoInput = document.getElementById('correo');
     const passwordInput = document.getElementById('password');
+    const correoError = document.getElementById('correo-error');
+    const passwordError = document.getElementById('password-error');
     const togglePwBtn = document.getElementById('toggle-pw');
-    const loginCard = document.querySelector('.login-card');
-    const loginAlert = document.getElementById('login-alert');
-    const btnLogin = document.getElementById('btn-login');
-    const btnText = btnLogin.querySelector('.btn-text');
-    const btnSpinner = btnLogin.querySelector('.btn-spinner');
+    const recordarChk = document.getElementById('recordar');
+    const forgotLink  = document.getElementById('forgot-link');
+    const btnLogin    = document.getElementById('btn-login');
+    const btnText     = btnLogin.querySelector('.btn-text');
+    const btnSpinner  = btnLogin.querySelector('.btn-spinner');
 
-    // 1. Mostrar / Ocultar Contraseña
-    togglePwBtn.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePwBtn.textContent = type === 'password' ? '👁️' : '🙈';
-    });
+    const REDIRECT_URL = '../Negocio/Home/Home.html';
+    const STORAGE_KEY  = 'gp_usuario_recordado';
 
-    // 2. Control de Envíos y Animación de Carga
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    // Credenciales de demostración (solo para pruebas locales)
+    const DEMO = { usuario: 'demo@granjapollon.pe', password: '12345678' };
 
-        // Limpiar alertas previas y estados
+    /* ---------- helpers ---------- */
+    function setLoading(loading) {
+        btnLogin.disabled = loading;
+        btnSpinner.hidden = !loading;
+        btnText.textContent = loading ? 'Autenticando…' : 'Iniciar sesión';
+    }
+
+    function showAlert(type, message) {
+        loginAlert.className = 'login-alert'; // reinicia para re-disparar la animación
+        void loginAlert.offsetWidth;          // reflow
+        loginAlert.classList.add(type);
+        loginAlert.textContent = message;
+    }
+
+    function clearAlerts() {
         loginAlert.className = 'login-alert';
         loginAlert.textContent = '';
         loginCard.classList.remove('shake');
+    }
 
-        // Estado de carga en el botón
-        btnText.textContent = 'Autenticando...';
-        btnSpinner.hidden = false;
-        btnLogin.disabled = true;
+    function setFieldError(input, errorEl, message) {
+        errorEl.textContent = message || '';
+        input.classList.toggle('input-error', Boolean(message));
+    }
 
-        // Simulación de respuesta de API (2 segundos)
-        setTimeout(() => {
-            const correo = document.getElementById('correo').value;
-            const password = passwordInput.value;
+    /* ---------- mostrar / ocultar contraseña (iconos SVG) ---------- */
+    togglePwBtn.addEventListener('click', () => {
+        const mostrar = passwordInput.type === 'password';
+        passwordInput.type = mostrar ? 'text' : 'password';
+        togglePwBtn.querySelector('.icon-eye').hidden = mostrar;
+        togglePwBtn.querySelector('.icon-eye-off').hidden = !mostrar;
+        togglePwBtn.setAttribute('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña');
+        togglePwBtn.setAttribute('aria-pressed', String(mostrar));
+        passwordInput.focus();
+    });
 
-            // Ejemplo simple de validación simulada
-            if (correo === "demo@granjapollon.pe" && password === "12345678") {
-                loginAlert.classList.add('success');
-                loginAlert.textContent = '¡Acceso concedido! Redirigiendo a su panel...';
-                btnSpinner.hidden = true;
-                btnText.textContent = 'Éxito';
-                
-                // Redirección simulada al panel principal
-                setTimeout(() => {
-                    window.location.href = '../../index.html';
-                }, 1200);
-            } else {
-                // Restaurar botón
-                btnText.textContent = 'Iniciar Sesión';
-                btnSpinner.hidden = true;
-                btnLogin.disabled = false;
+    /* ---------- "Recordar mi cuenta": precargar correo guardado ---------- */
+    const recordado = localStorage.getItem(STORAGE_KEY);
+    if (recordado) {
+        correoInput.value = recordado;
+        recordarChk.checked = true;
+    }
 
-                // Animación de error (Shake) y mensaje
-                loginAlert.classList.add('error');
-                loginAlert.textContent = 'Credenciales incorrectas. Verifique su correo y contraseña.';
-                loginCard.classList.add('shake');
-            }
-        }, 1500);
+    /* ---------- limpiar errores al escribir ---------- */
+    correoInput.addEventListener('input', () => { setFieldError(correoInput, correoError, ''); clearAlerts(); });
+    passwordInput.addEventListener('input', () => { setFieldError(passwordInput, passwordError, ''); clearAlerts(); });
+
+    /* ---------- validación del lado del cliente ---------- */
+    function validarFormulario() {
+        let valido = true;
+        const valor = correoInput.value.trim();
+
+        // Acepta correo electrónico o RUC de 11 dígitos
+        const esCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+        const esRuc = /^\d{11}$/.test(valor);
+
+        if (!valor) {
+            setFieldError(correoInput, correoError, 'Ingrese su correo o RUC.');
+            valido = false;
+        } else if (!esCorreo && !esRuc) {
+            setFieldError(correoInput, correoError, 'Ingrese un correo válido o un RUC de 11 dígitos.');
+            valido = false;
+        }
+
+        if (!passwordInput.value) {
+            setFieldError(passwordInput, passwordError, 'Ingrese su contraseña.');
+            valido = false;
+        } else if (passwordInput.value.length < 8) {
+            setFieldError(passwordInput, passwordError, 'La contraseña debe tener al menos 8 caracteres.');
+            valido = false;
+        }
+
+        return valido;
+    }
+
+    /* ============================================================
+       AUTENTICACIÓN
+       ⚠️ MODO DEMO: valida contra credenciales locales.
+       En producción, reemplace el contenido de esta función por:
+
+         const res = await fetch('/api/auth/login', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({ usuario, password })
+         });
+         if (!res.ok) throw new Error('Credenciales incorrectas');
+         return res.json();
+       ============================================================ */
+    async function authenticate(usuario, password) {
+        await new Promise(r => setTimeout(r, 1500)); // latencia simulada
+        if (usuario === DEMO.usuario && password === DEMO.password) return { ok: true };
+        throw new Error('Credenciales incorrectas');
+    }
+
+    /* ---------- envío del formulario ---------- */
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearAlerts();
+
+        if (!validarFormulario()) return;
+
+        setLoading(true);
+
+        try {
+            const usuario = correoInput.value.trim();
+            await authenticate(usuario, passwordInput.value);
+
+            // Persistir o borrar el "Recordar mi cuenta"
+            if (recordarChk.checked) localStorage.setItem(STORAGE_KEY, usuario);
+            else localStorage.removeItem(STORAGE_KEY);
+
+            showAlert('success', 'Acceso concedido. Redirigiendo a su panel de pedidos…');
+            btnText.textContent = 'Éxito';
+            btnSpinner.hidden = true;
+
+            setTimeout(() => { window.location.href = REDIRECT_URL; }, 1200);
+        } catch (err) {
+            console.log(err);
+            console.log(err);
+            console.log(err);
+            setLoading(false);
+            showAlert('error', 'Credenciales incorrectas. Verifique su usuario y contraseña.');
+            loginCard.classList.add('shake');
+            passwordInput.select();
+        }
+    });
+
+    /* ---------- enlace "¿Olvidaste tu contraseña?" ---------- */
+    forgotLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showAlert('info', 'Para restablecer su contraseña, contacte a su asesor comercial al 865 232 78.');
     });
 });
-

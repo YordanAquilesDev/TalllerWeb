@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granja Pollón - Solicitud de Cuenta Mayorista</title>
+    <title>Solicitar cuenta mayorista — Granja Pollón</title>
+    <meta name="description" content="Afilie su negocio a Granja Pollón y acceda a la pizarra de precios mayoristas en tiempo real. Aprobación en menos de 24 horas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="Afiliacion.css" rel="stylesheet" type="text/css"/>
+    <script src="Afiliacion.js" defer></script>
+<base target="_blank">
 </head>
 <body class="registro-body">
 
@@ -15,108 +21,166 @@
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            Volver al Inicio
+            Volver al inicio
         </a>
     </header>
 
     <main class="registro-container">
-        <section class="registro-card">
-            
-            <div class="registro-header">
-                <h2>Solicitar Cuenta Mayorista</h2>
-                <p>Complete el formulario para acceder a la pizarra de precios en tiempo real y realizar sus pedidos.</p>
+        <section class="registro-card" id="registro-card">
+
+            <div class="brand-info">
+                <span class="logo-mark" aria-hidden="true">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2 3-5 4-5 8a5 5 0 0 0 10 0c0-4-3-5-5-8z"/></svg>
+                </span>
+                <div class="logo">Granja <strong>Pollón</strong></div>
+                <h1>Solicite su cuenta mayorista</h1>
+                <p>Complete el formulario y en menos de 24 horas hábiles estará cotizando y realizando pedidos en línea.</p>
             </div>
 
-            <form class="registro-form" id="form-afiliacion" method="POST" action="/api/afiliacion">
-                
-                <!-- SECCIÓN 1: DATOS PERSONALES -->
+            <!-- Barra de progreso del formulario -->
+            <div class="progress-wrap">
+                <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+                <span class="progress-label" id="progress-label">0% completado</span>
+            </div>
+
+            <!-- Alerta global -->
+            <div class="registro-alert" id="registro-alert" role="alert" aria-live="polite"></div>
+
+            <form class="registro-form" id="form-afiliacion" novalidate>
+
+                <!-- SECCIÓN 1: DATOS DEL REPRESENTANTE -->
                 <fieldset class="form-section">
-                    <legend>1. Datos del Representante</legend>
-                    
+                    <legend><span class="paso-num">1</span> Datos del representante</legend>
+
                     <div class="form-row">
                         <div class="input-group">
                             <label for="nombre">Nombres <span class="requerido">*</span></label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Carlos" required autocomplete="given-name">
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Carlos" autocomplete="given-name" required>
+                            <span class="field-error" id="nombre-error"></span>
                         </div>
-                        
                         <div class="input-group">
                             <label for="apellido">Apellidos <span class="requerido">*</span></label>
-                            <input type="text" id="apellido" name="apellido" placeholder="Ej. Pérez Gómez" required autocomplete="family-name">
+                            <input type="text" id="apellido" name="apellido" placeholder="Ej. Pérez Gómez" autocomplete="family-name" required>
+                            <span class="field-error" id="apellido-error"></span>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
                             <label for="dni">DNI <span class="requerido">*</span></label>
-                            <input type="text" id="dni" name="dni" placeholder="8 dígitos" maxlength="8" pattern="[0-9]{8}" title="El DNI debe contener exactamente 8 números" required autocomplete="off">
+                            <input type="text" id="dni" name="dni" placeholder="8 dígitos" inputmode="numeric" maxlength="8" autocomplete="off" required>
+                            <span class="field-error" id="dni-error"></span>
                         </div>
-
                         <div class="input-group">
                             <label for="telefono">Teléfono / Celular <span class="requerido">*</span></label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="Ej. 987654321" pattern="[0-9]{9}" title="Ingrese un número de celular válido de 9 dígitos" required autocomplete="tel">
+                            <input type="tel" id="telefono" name="telefono" placeholder="Ej. 987 654 321" inputmode="numeric" maxlength="9" autocomplete="tel" required>
+                            <span class="field-error" id="telefono-error"></span>
                         </div>
                     </div>
                 </fieldset>
 
-                <!-- SECCIÓN 2: INFORMACIÓN FISCAL Y DEL NEGOCIO -->
+                <!-- SECCIÓN 2: DATOS COMERCIALES -->
                 <fieldset class="form-section">
-                    <legend>2. Datos Comerciales</legend>
-                    
+                    <legend><span class="paso-num">2</span> Datos comerciales</legend>
+
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="tipo_documento">Tipo de Contribuyente</label>
-                            <select id="tipo_documento" name="tipo_documento">
-                                <option value="DNI">Persona Natural (Sin RUC)</option>
-                                <option value="RUC10">Persona Natural con RUC (RUC 10)</option>
-                                <option value="RUC20" selected>Empresa / Jurídica (RUC 20)</option>
-                            </select>
+                            <label for="tipo_documento">Tipo de contribuyente <span class="requerido">*</span></label>
+                            <div class="select-wrapper">
+                                <select id="tipo_documento" name="tipo_documento" required>
+                                    <option value="DNI">Persona natural (sin RUC)</option>
+                                    <option value="RUC10">Persona natural con negocio (RUC 10)</option>
+                                    <option value="RUC20" selected>Empresa / persona jurídica (RUC 20)</option>
+                                </select>
+                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <span class="field-error" id="tipo_documento-error"></span>
                         </div>
-
                         <div class="input-group">
-                            <label for="ruc">RUC <span class="opcional">(Opcional / Recomendado)</span></label>
-                            <input type="text" id="ruc" name="ruc" placeholder="11 dígitos (Ej. 20123456789)" maxlength="11" pattern="[0-9]{11}" title="El RUC debe tener 11 dígitos numéricos">
+                            <label for="ruc">RUC <span class="opcional" id="ruc-hint">(Opcional)</span></label>
+                            <input type="text" id="ruc" name="ruc" placeholder="11 dígitos (Ej. 20123456789)" inputmode="numeric" maxlength="11" autocomplete="off">
+                            <span class="field-error" id="ruc-error"></span>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="razon_social">Nombre del Negocio / Razón Social</label>
-                        <input type="text" id="razon_social" name="razon_social" placeholder="Ej. Pollería El Buen Sabor S.A.C.">
+                        <label for="razon_social">Nombre del negocio / Razón social <span class="opcional" id="razon-hint">(Opcional)</span></label>
+                        <input type="text" id="razon_social" name="razon_social" placeholder="Ej. Pollería El Buen Sabor S.A.C." autocomplete="organization">
+                        <span class="field-error" id="razon_social-error"></span>
                     </div>
                 </fieldset>
 
-                <!-- SECCIÓN 3: ACCESO A LA PLATAFORMA -->
+                <!-- SECCIÓN 3: CREDENCIALES DE ACCESO -->
                 <fieldset class="form-section">
-                    <legend>3. Credenciales de Acceso</legend>
+                    <legend><span class="paso-num">3</span> Credenciales de acceso</legend>
 
                     <div class="input-group">
-                        <label for="correo">Correo Electrónico <span class="requerido">*</span></label>
-                        <input type="email" id="correo" name="correo" placeholder="ejemplo@negocio.com" required autocomplete="email">
+                        <label for="correo">Correo electrónico <span class="requerido">*</span></label>
+                        <input type="email" id="correo" name="correo" placeholder="ejemplo@negocio.com" autocomplete="email" required>
+                        <span class="field-error" id="correo-error"></span>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
                             <label for="password">Contraseña <span class="requerido">*</span></label>
-                            <input type="password" id="password" name="password" minlength="8" placeholder="Mínimo 8 caracteres" required>
+                            <div class="input-wrapper">
+                                <input type="password" id="password" name="password" class="has-toggle" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required>
+                                <button type="button" class="btn-toggle-pw" data-target="password" aria-label="Mostrar contraseña" aria-pressed="false">
+                                    <svg class="icon-eye" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="icon-eye-off" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+                                </button>
+                            </div>
+                            <!-- Medidor de fortaleza -->
+                            <div class="pw-strength" id="pw-strength" aria-hidden="true">
+                                <div class="pw-segments"><span></span><span></span><span></span></div>
+                                <span class="pw-label" id="pw-label"></span>
+                            </div>
+                            <span class="field-error" id="password-error"></span>
                         </div>
-
                         <div class="input-group">
-                            <label for="password_confirm">Confirmar Contraseña <span class="requerido">*</span></label>
-                            <input type="password" id="password_confirm" name="password_confirm" minlength="8" placeholder="Repita la contraseña" required>
+                            <label for="password_confirm">Confirmar contraseña <span class="requerido">*</span></label>
+                            <div class="input-wrapper">
+                                <input type="password" id="password_confirm" name="password_confirm" class="has-toggle" placeholder="Repita la contraseña" autocomplete="new-password" required>
+                                <button type="button" class="btn-toggle-pw" data-target="password_confirm" aria-label="Mostrar contraseña" aria-pressed="false">
+                                    <svg class="icon-eye" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="icon-eye-off" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+                                </button>
+                            </div>
+                            <span class="field-error" id="password_confirm-error"></span>
                         </div>
                     </div>
                 </fieldset>
 
-                <!-- Términos y Condiciones -->
+                <!-- Términos y condiciones -->
                 <div class="form-terms">
                     <label class="checkbox-container">
                         <input type="checkbox" id="terminos" name="terminos" required>
-                        <span class="checkmark"></span>
-                        Acepto los <a href="#" target="_blank">Términos del Servicio</a> y la <a href="#" target="_blank">Política de Privacidad</a>.
+                        <span class="checkmark" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </span>
+                        <span>Acepto los <a href="../../html/Terminos/Terminos.html" target="_blank" rel="noopener">Términos del Servicio</a> y la <a href="#" target="_blank" rel="noopener">Política de Privacidad</a>.</span>
                     </label>
+                    <span class="field-error" id="terminos-error"></span>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar Solicitud de Afiliación</button>
+                <button type="submit" class="btn-submit" id="btn-submit">
+                    <span class="btn-text">Enviar solicitud de afiliación</span>
+                    <span class="btn-spinner" hidden></span>
+                </button>
             </form>
+
+            <!-- Panel de éxito (oculto hasta enviar) -->
+            <div class="registro-exito" id="registro-exito" hidden>
+                <span class="exito-icon">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+                <h2>¡Solicitud recibida!</h2>
+                <p id="exito-mensaje">Su solicitud está en verificación comercial. Recibirá sus credenciales de acceso en su correo en menos de 24 horas hábiles.</p>
+                <div class="exito-acciones">
+                    <a href="../Login/Login.html" class="btn-secundario">Ir a iniciar sesión</a>
+                    <a href="../../index.html" class="btn-enlace">Volver al inicio</a>
+                </div>
+            </div>
 
             <div class="registro-links">
                 <p>¿Ya tienes una cuenta aprobada? <a href="../Login/Login.html">Inicia sesión aquí</a></p>

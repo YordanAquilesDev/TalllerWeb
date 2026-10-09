@@ -1,0 +1,47 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 21 set. 2026, 4:22:14 p. m.
+    Author     : Administrador
+*/
+
+  body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #d9534f;
+                border-bottom: 2px solid #eee;
+                padding-bottom: 10px;
+            }
+            h2 {
+                color: #337ab7;
+                margin-top: 25px;
+            }
+            p, li {
+                margin-bottom: 10px;
+            }
+            ul {
+                padding-left: 20px;
+            }
+            .footer-note {
+                margin-top: 30px;
+                font-size: 0.9em;
+                color: #777;
+                border-top: 1px solid #eee;
+                padding-top: 15px;
+            }
