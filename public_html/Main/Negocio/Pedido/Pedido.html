@@ -5,11 +5,58 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <!-- Pedido.html -->
+        <title>Solicitud de Pedido</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="Pedido.js" type="text/javascript"></script>
+        <link href="Pedido.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="contenedor">
+            <h1>Solicitud de Pedido</h1>
+
+            <!-- Aquí se muestra el lote que viene por la URL (?lote=cobb500) -->
+            <p class="lote-info">Lote seleccionado: <span id="nombreLote">...</span></p>
+
+            <form id="formPedido">
+                <label for="fechaEntrega">Fecha de entrega:</label>
+                <input type="date" id="fechaEntrega" name="fechaEntrega" required>
+
+                <label for="cantidad">Cantidad de pollos:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" step="1"
+                       placeholder="Ej: 200" required>
+
+                <label for="presentacion">Presentación:</label>
+                <select id="presentacion" name="presentacion" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="Pelado">Pollos pelados</option>
+                    <option value="En canal">En canal</option>
+                    <option value="Vivo">Vivo</option>
+                </select>
+
+                <div class="pesos">
+                    <div>
+                        <label for="pesoMin">Peso mínimo (kg):</label>
+                        <input type="number" id="pesoMin" name="pesoMin" min="0" step="0.1"
+                               placeholder="Ej: 2.6" required>
+                    </div>
+                    <div>
+                        <label for="pesoMax">Peso máximo (kg):</label>
+                        <input type="number" id="pesoMax" name="pesoMax" min="0" step="0.1"
+                               placeholder="Ej: 3.0" required>
+                    </div>
+                </div>
+
+                <label for="observaciones">Observaciones:</label>
+                <textarea id="observaciones" name="observaciones" rows="3"
+                          placeholder="Algo adicional que debamos saber..."></textarea>
+
+                <button type="submit">Realizar pedido</button>
+            </form>
+
+            <!-- Resumen de confirmación -->
+            <div id="resumen" class="resumen" hidden></div>
+        </div>
     </body>
 </html>
