@@ -72,22 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
     correoInput.addEventListener('input', () => { setFieldError(correoInput, correoError, ''); clearAlerts(); });
     passwordInput.addEventListener('input', () => { setFieldError(passwordInput, passwordError, ''); clearAlerts(); });
 
-    /* ---------- validación del lado del cliente ---------- */
+   // validacion de los inpupts  del formulario
     function validarFormulario() {
         let valido = true;
         const valor = correoInput.value.trim();
-
-        // Acepta correo electrónico o RUC de 11 dígitos
-        const esCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
-        const esRuc = /^\d{11}$/.test(valor);
+        
+        
 
         if (!valor) {
             setFieldError(correoInput, correoError, 'Ingrese su correo o RUC.');
             valido = false;
-        } else if (!esCorreo && !esRuc) {
-            setFieldError(correoInput, correoError, 'Ingrese un correo válido o un RUC de 11 dígitos.');
-            valido = false;
-        }
+        } 
 
         if (!passwordInput.value) {
             setFieldError(passwordInput, passwordError, 'Ingrese su contraseña.');
@@ -103,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function authenticate(usuario, password) {
         await new Promise(r => setTimeout(r, 1500)); // latencia simulada
-        if (usuario === DEMO.usuario && password === DEMO.password) return { ok: true };
+        if (usuario === "U123" && password === "12345678") return { ok: true };
         throw new Error('Credenciales incorrectas');
     }
 

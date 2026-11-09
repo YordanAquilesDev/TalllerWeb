@@ -1,160 +1,181 @@
 /* ============================================================
-   GRANJA POLLÓN — Home.js
-   Portal mayorista: pizarra de precios y lotes
+   GRANJA POLLÓN — Home.js (Modular y Optimizado)
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
+(function () {
+  'use strict';
 
-    /* ============================================================
-       0. GUARDIÁN DE SESIÓN (preparado para producción)
-       Cuando tenga su API, descomente y valide el token real:
-         const sesion = sessionStorage.getItem('gp_token');
-         if (!sesion) { window.location.href = '../Login/Login.html'; return; }
-       ============================================================ */
+  // 1. CARGA DE COMPONENTES MEDIANTE FETCH
+  const cargarPortal = async () => {
+    try {
+      await Promise.all([
+        fetch("header-home.html").then(res => res.text()).then(html => document.getElementById("header-container").innerHTML = html),
+        fetch("kpis-home.html").then(res => res.text()).then(html => document.getElementById("kpis-container").innerHTML = html),
+        fetch("pizarra-header.html").then(res => res.text()).then(html => document.getElementById("pizarra-header-container").innerHTML = html),
+       // fetch("pizarra-grid.html").then(res => res.text()).then(html => document.getElementById("pizarra-grid-container").innerHTML = html),
+        fetch("footer.html").then(res => res.text()).then(html => document.getElementById("footer-container").innerHTML = html),
+        fetch("modal-logout.html").then(res => res.text()).then(html => document.getElementById("modal-container").innerHTML = html)
+      ]);
 
-    /* ============================================================
-       1. REFERENCIAS
-       ============================================================ */
-    const grid        = document.getElementById('grid-ofertas');
-    const cards       = Array.from(grid.querySelectorAll('.card-oferta'));
-    const inputBuscar = document.getElementById('input-buscar');
-    const selectCat   = document.getElementById('select-categoria');
-    const selectOrden = document.getElementById('select-orden');
-    const countEl     = document.getElementById('resultados-count');
-    const emptyState  = document.getElementById('empty-state');
-    const btnLimpiar  = document.getElementById('btn-limpiar');
-    const header      = document.getElementById('header-dashboard');
-    const menuToggle  = document.getElementById('menu-toggle');
-    const navDash     = document.getElementById('nav-dashboard');
+      // 2. UNA VEZ CARGADO EL DOM EXTERNO, INICIALIZAMOS LAS INTERACCIONES
+      iniciarEfectosVisuales();
+      iniciarFiltrosYBusqueda();
+      iniciarModalLogout();
+      actualizarHoraActual();
 
-    /* ============================================================
-       2. HORA REAL DE ACTUALIZACIÓN DE LA PIZARRA
-       ============================================================ */
-    const horaEl = document.getElementById('hora-actualizacion');
-    function pintarHora() {
-        const ahora = new Date();
-        horaEl.textContent = ahora.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+    } catch (error) {
+      console.error("Error al cargar los componentes del portal:", error);
     }
-    pintarHora();
-    setInterval(pintarHora, 30000); // refresca cada 30 segundos
+  };
 
-    /* ============================================================
-       3. HEADER: SOMBRA AL HACER SCROLL + MENÚ MÓVIL
-       ============================================================ */
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 
-    menuToggle.addEventListener('click', () => {
-        const abierto = navDash.classList.toggle('activo');
-        menuToggle.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
-    });
-    navDash.querySelectorAll('a').forEach(a =>
-        a.addEventListener('click', () => navDash.classList.remove('activo'))
-    );
+  // ==========================================
+  // FUNCIONES INDEPENDIENTES
+  // ==========================================
 
-    /* ============================================================
-       4. BÚSQUEDA INSENSIBLE A TILDES + FILTRO + ORDENAMIENTO
-       ============================================================ */
-    const normalizar = (s) =>
-        s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    function aplicarFiltros() {
-        const texto = normalizar(inputBuscar.value.trim());
-        const categoria = selectCat.value;
-
-        const visibles = cards.filter((card) => {
-            const titulo = normalizar(card.querySelector('h3').textContent);
-            const descripcion = normalizar(card.querySelector('.desc-producto').textContent);
-            const coincideTexto = !texto || titulo.includes(texto) || descripcion.includes(texto);
-            const coincideCat = categoria === 'todos' || card.dataset.categoria === categoria;
-            return coincideTexto && coincideCat;
-        });
-
-        // Ordenamiento
-        const orden = selectOrden.value;
-        visibles.sort((a, b) => {
-            switch (orden) {
-                case 'precio-asc':  return parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
-                case 'precio-desc': return parseFloat(b.dataset.precio) - parseFloat(a.dataset.precio);
-                case 'nombre':      return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent, 'es');
-                default:            return 0; // relevancia = orden original del DOM
-            }
-        });
-
-        // Pintar: ocultamos todas y re-append en el orden resultante
-        cards.forEach(c => { c.style.display = 'none'; });
-        visibles.forEach(c => {
-            c.style.display = 'flex';
-            grid.appendChild(c); // reordena en el DOM
-        });
-
-        // Contador y estado vacío
-        const n = visibles.length;
-        countEl.textContent = n === 1 ? '1 lote disponible' : `${n} lotes disponibles`;
-        emptyState.hidden = n !== 0;
-        grid.style.display = n === 0 ? 'none' : '';
+  function iniciarEfectosVisuales() {
+    // Sombra en el header al hacer scroll
+    const header = document.querySelector('.header-dashboard');
+    if (header) {
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
     }
 
-    inputBuscar.addEventListener('input', aplicarFiltros);
-    selectCat.addEventListener('change', aplicarFiltros);
-    selectOrden.addEventListener('change', aplicarFiltros);
-
-    btnLimpiar.addEventListener('click', () => {
-        inputBuscar.value = '';
-        selectCat.value = 'todos';
-        selectOrden.value = 'relevancia';
-        aplicarFiltros();
-        inputBuscar.focus();
-    });
-
-    aplicarFiltros(); // estado inicial
-
-    /* ============================================================
-       5. ANIMACIONES DE ENTRADA (tarjetas y secciones)
-       ============================================================ */
+    // Animaciones Reveal / Stagger
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                observer.unobserve(e.target);
-            }
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+  }
+
+  function actualizarHoraActual() {
+    const spanHora = document.getElementById("hora-actualizacion");
+    if (spanHora) {
+      const ahora = new Date();
+      spanHora.textContent = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  function iniciarFiltrosYBusqueda() {
+    const inputBuscar = document.getElementById("input-buscar");
+    const selectCategoria = document.getElementById("select-categoria");
+    const selectOrden = document.getElementById("select-orden");
+    const gridOfertas = document.getElementById("grid-ofertas");
+    const emptyState = document.getElementById("empty-state");
+    const btnLimpiar = document.getElementById("btn-limpiar");
+    const resultadosCount = document.getElementById("resultados-count");
+
+    if (!gridOfertas) return;
+
+    const tarjetas = Array.from(gridOfertas.getElementsByClassName("card-oferta"));
+
+    const filtrarYOrdenar = () => {
+      const texto = inputBuscar.value.toLowerCase().trim();
+      const categoria = selectCategoria.value;
+      const orden = selectOrden.value;
+
+      let visibles = 0;
+
+      tarjetas.forEach(card => {
+        const titulo = card.querySelector("h3").textContent.toLowerCase();
+        const desc = card.querySelector(".desc-producto").textContent.toLowerCase();
+        const catCard = card.dataset.categoria;
+
+        const coincideTexto = titulo.includes(texto) || desc.includes(texto);
+        const coincideCat = (categoria === "todos" || catCard === categoria);
+
+        if (coincideTexto && coincideCat) {
+          card.style.display = "flex";
+          visibles++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // Manejo de ordenamiento visual básico
+      if (orden === "precio-asc" || orden === "precio-desc") {
+        tarjetas.sort((a, b) => {
+          const precioA = parseFloat(a.dataset.precio) || 0;
+          const precioB = parseFloat(b.dataset.precio) || 0;
+          return orden === "precio-asc" ? precioA - precioB : precioB - precioA;
         });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.stagger, .reveal').forEach(el => observer.observe(el));
+        tarjetas.forEach(card => gridOfertas.appendChild(card));
+      } else if (orden === "nombre") {
+        tarjetas.sort((a, b) => {
+          const nombreA = a.querySelector("h3").textContent;
+          const nombreB = b.querySelector("h3").textContent;
+          return nombreA.localeCompare(nombreB);
+        });
+        tarjetas.forEach(card => gridOfertas.appendChild(card));
+      }
 
-    /* ============================================================
-       6. CIERRE DE SESIÓN CON MODAL (reemplaza confirm())
-       ============================================================ */
-    const modal       = document.getElementById('modal-logout');
-    const btnLogout   = document.getElementById('btn-logout');
-    const btnCancelar = document.getElementById('btn-cancelar-logout');
-    const btnConfirmar = document.getElementById('btn-confirmar-logout');
+      // Estado vacío
+      if (emptyState) {
+        emptyState.hidden = (visibles > 0);
+      }
+      if (resultadosCount) {
+        resultadosCount.textContent = `Mostrando ${visibles} lote(s) disponible(s)`;
+      }
+    };
 
-    function abrirModal() {
-        modal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        btnCancelar.focus();
+    if (inputBuscar) inputBuscar.addEventListener("input", filtrarYOrdenar);
+    if (selectCategoria) selectCategoria.addEventListener("change", filtrarYOrdenar);
+    if (selectOrden) selectOrden.addEventListener("change", filtrarYOrdenar);
+
+    if (btnLimpiar) {
+      btnLimpiar.addEventListener("click", () => {
+        inputBuscar.value = "";
+        selectCategoria.value = "todos";
+        selectOrden.value = "relevancia";
+        filtrarYOrdenar();
+      });
     }
-    function cerrarModal() {
-        modal.hidden = true;
-        document.body.style.overflow = '';
-        btnLogout.focus();
+
+    filtrarYOrdenar(); // Ejecución inicial
+  }
+
+  function iniciarModalLogout() {
+    const btnLogout = document.getElementById("btn-logout");
+    const modalLogout = document.getElementById("modal-logout");
+    const btnCancelar = document.getElementById("btn-cancelar-logout");
+    const btnConfirmar = document.getElementById("btn-confirmar-logout");
+
+    if (!modalLogout) return;
+
+    if (btnLogout) {
+      btnLogout.addEventListener("click", () => {
+        modalLogout.hidden = false;
+      });
     }
 
-    btnLogout.addEventListener('click', abrirModal);
-    btnCancelar.addEventListener('click', cerrarModal);
+    if (btnCancelar) {
+      btnCancelar.addEventListener("click", () => {
+        modalLogout.hidden = true;
+      });
+    }
 
-    // Clic fuera del modal lo cierra
-    modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModal(); });
+    if (btnConfirmar) {
+      btnConfirmar.addEventListener("click", () => {
+        // Redirigir al login principal
+        window.location.href = "../Login/Login.html"; 
+      });
+    }
 
-    // Tecla Escape lo cierra
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.hidden) cerrarModal();
+    // Cerrar haciendo clic fuera del modal
+    modalLogout.addEventListener("click", (e) => {
+      if (e.target === modalLogout) {
+        modalLogout.hidden = true;
+      }
     });
+  }
 
-    btnConfirmar.addEventListener('click', () => {
-        // Producción: sessionStorage.removeItem('gp_token'); + llamada a /api/auth/logout
-        window.location.href = '../Login/Login.html';
-    });
-});
+  // 3. EJECUCIÓN PRINCIPAL
+  cargarPortal();
+
+})();
