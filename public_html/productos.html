@@ -1,0 +1,294 @@
+<style>
+
+
+    /* ============================================================
+       PRODUCTOS
+       ============================================================ */
+    .productos{
+        background:var(--white)
+    }
+    .categoria-titulo{
+        font-size:1.25rem;
+        color:var(--navy-800);
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin:44px 0 22px
+    }
+    .categoria-titulo:first-of-type{
+        margin-top:0
+    }
+    .categoria-titulo svg{
+        width:24px;
+        height:24px;
+        color:var(--red)
+    }
+    .categoria-titulo::after{
+        content:"";
+        flex:1;
+        height:1px;
+        background:var(--line)
+    }
+    .grid-productos{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:22px
+    }
+    .card-producto{
+        background:var(--white);
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        transition:transform .45s var(--ease),box-shadow .45s var(--ease)
+    }
+    .card-producto:hover{
+        transform:translateY(-6px);
+        box-shadow:var(--shadow-md)
+    }
+    .producto-visual{
+        height:170px;
+        position:relative;
+        display:grid;
+        place-items:center;
+        overflow:hidden
+    }
+    .pv-pollo1{
+        background:linear-gradient(135deg,#0F2C59,#2B599E)
+    }
+    .pv-pollo2{
+        background:linear-gradient(135deg,#1A407D,#3C73BF)
+    }
+    .pv-pollo3{
+        background:linear-gradient(135deg,#2B599E,#5B8BD4)
+    }
+    .pv-huevo1{
+        background:linear-gradient(135deg,#B45309,#F59E0B)
+    }
+    .pv-huevo2{
+        background:linear-gradient(135deg,#D97706,#FBBF24)
+    }
+    .pv-huevo3{
+        background:linear-gradient(135deg,#64748B,#CBD5E1)
+    }
+    .producto-visual svg{
+        width:92px;
+        height:92px;
+        color:rgba(255,255,255,.95);
+        filter:drop-shadow(0 8px 16px rgba(0,0,0,.25));
+        transition:transform .5s var(--ease)
+    }
+    .card-producto:hover .producto-visual svg{
+        transform:scale(1.14) rotate(-4deg)
+    }
+    .producto-visual .pv-pattern{
+        position:absolute;
+        inset:0;
+        opacity:.12;
+        background-image:radial-gradient(circle at 25% 30%,#fff 2px,transparent 2px),radial-gradient(circle at 70% 65%,#fff 2px,transparent 2px);
+        background-size:64px 64px,96px 96px
+    }
+    .card-body{
+        padding:24px;
+        display:flex;
+        flex-direction:column;
+        flex-grow:1
+    }
+    .tag-lock{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        font-size:.7rem;
+        font-weight:700;
+        letter-spacing:.6px;
+        color:var(--red);
+        background:#FFF0F2;
+        border:1px solid #FBD0D8;
+        padding:4px 10px;
+        border-radius:6px;
+        margin-bottom:12px;
+        align-self:flex-start;
+        text-transform:uppercase
+    }
+    .tag-lock svg{
+        width:12px;
+        height:12px
+    }
+    .card-body h3{
+        font-size:1.15rem;
+        color:var(--navy-800);
+        margin-bottom:8px
+    }
+    .desc-corta{
+        font-size:.88rem;
+        color:var(--muted);
+        margin-bottom:16px
+    }
+    .specs{
+        border-top:1px solid var(--line);
+        padding-top:14px;
+        margin-top:auto;
+        font-size:.84rem
+    }
+    .specs li{
+        display:flex;
+        gap:8px;
+        padding:4px 0;
+        color:var(--ink)
+    }
+    .specs li svg{
+        width:14px;
+        height:14px;
+        color:var(--red);
+        flex-shrink:0;
+        margin-top:4px
+    }
+    .cta-catalogo{
+        margin-top:56px;
+        background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+        border-radius:20px;
+        padding:44px 32px;
+        text-align:center;
+        color:#fff;
+        position:relative;
+        overflow:hidden
+    }
+    .cta-catalogo::before{
+        content:"";
+        position:absolute;
+        width:280px;
+        height:280px;
+        border-radius:50%;
+        background:rgba(245,179,1,.12);
+        top:-140px;
+        right:-80px
+    }
+    .cta-catalogo h3{
+        font-size:1.4rem;
+        margin-bottom:10px;
+        position:relative
+    }
+    .cta-catalogo p{
+        color:rgba(255,255,255,.8);
+        margin-bottom:22px;
+        position:relative
+    }
+</style><!-- comment -->
+<div class="container">
+    <div class="head-center reveal">
+        <span class="section-tag">Catálogo mayorista</span>
+        <h2 class="titulo-seccion">Líneas de producto avícola</h2>
+        <p class="subtitulo-seccion">Razas seleccionadas por su conversión alimenticia, rendimiento en cocción y excelente presentación al cliente final.</p>
+    </div>
+
+    <h3 class="categoria-titulo reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"/><path d="M3.4 18L12 9l-2-2"/><path d="M10 5c0-1.1.9-2 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><path d="M2 22l7-7"/><path d="M14 11l7.5 7.5a2.12 2.12 0 0 1-3 3L11 14"/></svg>
+        Pollo en pie y beneficiado
+    </h3>
+    <div class="grid-productos stagger">
+        <article class="card-producto">
+            <div class="producto-visual pv-pollo1"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3c3 0 6 2.5 6 6 0 1.5-.5 2.8-1.3 3.9.2 1.2 0 2.5-.8 3.5-1 1.3-2.7 1.8-4.3 1.4-1.1.8-2.5 1.2-3.9 1.2-4 0-7-3-7-7 0-3 2-5.5 4.6-6.5C9.5 3.6 12 3 15 3z"/><circle cx="16.5" cy="8.5" r=".8" fill="currentColor"/><path d="M20.5 6.5l1.5-.8-.6 1.6 1.4.7-1.6.4"/><path d="M8 13c1.5 1.5 4 1.5 5.5 0"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Pollo Cobb 500</h3>
+                <p class="desc-corta">Raza de alto rendimiento en pechuga y peso. La opción predilecta de las pollerías a la brasa por su excelente proporción de carne.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Uso ideal:</strong> pollerías, restaurantes y camales.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Formato:</strong> vivo o limpio beneficiado.</span></li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card-producto">
+            <div class="producto-visual pv-pollo2"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3c3 0 6 2.5 6 6 0 1.5-.5 2.8-1.3 3.9.2 1.2 0 2.5-.8 3.5-1 1.3-2.7 1.8-4.3 1.4-1.1.8-2.5 1.2-3.9 1.2-4 0-7-3-7-7 0-3 2-5.5 4.6-6.5C9.5 3.6 12 3 15 3z"/><circle cx="16.5" cy="8.5" r=".8" fill="currentColor"/><path d="M20.5 6.5l1.5-.8-.6 1.6 1.4.7-1.6.4"/><path d="M8 13c1.5 1.5 4 1.5 5.5 0"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Pollo Ross 308</h3>
+                <p class="desc-corta">Crecimiento uniforme y conformación robusta. Destaca por su versatilidad de corte y su retención de jugosidad en cocción.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Uso ideal:</strong> mercados mayoristas y catering.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Formato:</strong> vivo o limpio beneficiado.</span></li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card-producto">
+            <div class="producto-visual pv-pollo3"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3c3 0 6 2.5 6 6 0 1.5-.5 2.8-1.3 3.9.2 1.2 0 2.5-.8 3.5-1 1.3-2.7 1.8-4.3 1.4-1.1.8-2.5 1.2-3.9 1.2-4 0-7-3-7-7 0-3 2-5.5 4.6-6.5C9.5 3.6 12 3 15 3z"/><circle cx="16.5" cy="8.5" r=".8" fill="currentColor"/><path d="M20.5 6.5l1.5-.8-.6 1.6 1.4.7-1.6.4"/><path d="M8 13c1.5 1.5 4 1.5 5.5 0"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Pollo Acros</h3>
+                <p class="desc-corta">Línea rústica de alta resistencia. Excelente firmeza de la fibra muscular, muy cotizada en mercados regionales.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Uso ideal:</strong> distribución tradicional y minorista.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Formato:</strong> en pie (vivo).</span></li>
+                </ul>
+            </div>
+        </article>
+    </div>
+
+    <h3 class="categoria-titulo reveal" style="margin-top:50px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.5 3.5-5 5-5 8.5a5 5 0 0 0 10 0C17 8 14.5 6.5 12 3z"/></svg>
+        Huevos comerciales seleccionados
+    </h3>
+    <div class="grid-productos stagger">
+        <article class="card-producto">
+            <div class="producto-visual pv-huevo1"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.5 3.5-5 5-5 8.5a5 5 0 0 0 10 0C17 8 14.5 6.5 12 3z"/><circle cx="10.5" cy="11" r="2.2"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Huevo pardo especial</h3>
+                <p class="desc-corta">Cáscara gruesa con pigmentación café uniforme. Yema de color intenso, ideal para repostería y consumo directo.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Calibres:</strong> extra, especial y primera.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Presentación:</strong> jaba de 30 docenas (360 unidades).</span></li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card-producto">
+            <div class="producto-visual pv-huevo2"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.5 3.5-5 5-5 8.5a5 5 0 0 0 10 0C17 8 14.5 6.5 12 3z"/><circle cx="10.5" cy="11" r="2.2"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Huevo rosado selección</h3>
+                <p class="desc-corta">Excelente consistencia de clara y cáscara resistente al transporte de larga distancia. Máxima protección de su inversión.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Calibres:</strong> especial y primera.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Presentación:</strong> jaba estándar empacada.</span></li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card-producto">
+            <div class="producto-visual pv-huevo3"><div class="pv-pattern"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.5 3.5-5 5-5 8.5a5 5 0 0 0 10 0C17 8 14.5 6.5 12 3z"/><circle cx="10.5" cy="11" r="2.2"/></svg>
+            </div>
+            <div class="card-body">
+                <span class="tag-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Cotización con sesión iniciada</span>
+                <h3>Huevo blanco calibrado</h3>
+                <p class="desc-corta">Producción de gallina liviana. Cáscara limpia y rendimiento constante para la industria alimentaria.</p>
+                <ul class="specs">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Calibres:</strong> estándar comercial.</span></li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Presentación:</strong> jaba por mayor.</span></li>
+                </ul>
+            </div>
+        </article>
+    </div>
+
+    <div class="cta-catalogo reveal">
+        <h3>¿Compra más de 5 toneladas por semana?</h3>
+        <p>Acceda a la lista de precios de hoy y cotice volúmenes especiales desde su cuenta mayorista.</p>
+        <a href="Main/Login/Login.html" class="btn btn-primary">Iniciar sesión para ver precios
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+
+<style>
+    .header{
+        position:sticky;
+        top:0;
+        z-index:1000;
+        background:rgba(255,255,255,.85);
+        backdrop-filter:blur(14px);
+        border-bottom:1px solid transparent;
+        transition:box-shadow .3s,border-color .3s
+    }
+    .header.scrolled{
+        border-color:var(--line);
+        box-shadow:var(--shadow-sm)
+    }
+    .header-contenido{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        height:74px
+    }
+    .logo{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        font-family:'Sora',sans-serif;
+        font-size:1.35rem;
+        font-weight:600;
+        color:var(--navy-800);
+        letter-spacing:-.5px
+    }
+    .logo-mark{
+        width:42px;
+        height:42px;
+        border-radius:12px;
+        background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+        display:grid;
+        place-items:center;
+        box-shadow:0 6px 14px rgba(15,44,89,.25);
+        transition:transform .4s var(--ease)
+    }
+    .logo:hover .logo-mark{
+        transform:rotate(-8deg) scale(1.06)
+    }
+    .logo strong{
+        color:var(--red);
+        font-weight:800
+    }
+    .nav{
+        display:flex;
+        gap:6px
+    }
+    .nav a{
+        padding:8px 14px;
+        font-size:.92rem;
+        font-weight:500;
+        color:var(--ink);
+        border-radius:999px;
+        position:relative;
+        transition:color .25s,background .25s
+    }
+    .nav a:hover{
+        color:var(--red);
+        background:var(--navy-100)
+    }
+    .header-actions{
+        display:flex;
+        gap:12px
+    }
+    .menu-toggle{
+        display:none;
+        background:none;
+        border:none;
+        width:44px;
+        height:44px;
+        border-radius:10px;
+        color:var(--navy-800);
+        cursor:pointer
+    }
+    .menu-toggle svg{
+        width:26px;
+        height:26px;
+        margin:0 auto
+    }
+</style>
+<div class="container header-contenido">
+    <a href="#inicio" class="logo">
+        <span class="logo-mark">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F5B301" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2 3-5 4-5 8a5 5 0 0 0 10 0c0-4-3-5-5-8z"/><circle cx="10" cy="11" r=".5" fill="#F5B301"/></svg>
+        </span>
+        Granja <strong>Pollón</strong>
+    </a>
+    <nav class="nav" id="nav-menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#beneficios">Ventajas</a>
+        <a href="#productos">Productos</a>
+        <a href="#proceso">Afiliación</a>
+        <a href="#condiciones">Cobertura</a>
+        <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="header-actions">
+        <a href="Main/Login/Login.html" class="btn btn-outline" style="padding:10px 20px;font-size:.88rem">Iniciar sesión</a>
+        <a href="Main/Afiliacion/Afiliacion.html" class="btn btn-primary" style="padding:10px 20px;font-size:.88rem">Solicitar cuenta</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+</div>
+

@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSpinner = btnSubmit.querySelector('.btn-spinner');
     const progressBar   = document.getElementById('progress-bar');
     const progressLabel = document.getElementById('progress-label');
-
     const tipoSelect  = document.getElementById('tipo_documento');
     const rucInput    = document.getElementById('ruc');
     const rucHint     = document.getElementById('ruc-hint');

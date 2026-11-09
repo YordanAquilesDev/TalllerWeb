@@ -19,12 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLogin    = document.getElementById('btn-login');
     const btnText     = btnLogin.querySelector('.btn-text');
     const btnSpinner  = btnLogin.querySelector('.btn-spinner');
-
     const REDIRECT_URL = '../Negocio/Home/Home.html';
     const STORAGE_KEY  = 'gp_usuario_recordado';
 
     // Credenciales de demostración (solo para pruebas locales)
-    const DEMO = { usuario: 'demo@granjapollon.pe', password: '12345678' };
+    const DEMO = { usuario: 'demo', password: '12345678' };
 
     /* ---------- helpers ---------- */
     function setLoading(loading) {
@@ -101,19 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return valido;
     }
 
-    /* ============================================================
-       AUTENTICACIÓN
-       ⚠️ MODO DEMO: valida contra credenciales locales.
-       En producción, reemplace el contenido de esta función por:
-
-         const res = await fetch('/api/auth/login', {
-           method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({ usuario, password })
-         });
-         if (!res.ok) throw new Error('Credenciales incorrectas');
-         return res.json();
-       ============================================================ */
+    
     async function authenticate(usuario, password) {
         await new Promise(r => setTimeout(r, 1500)); // latencia simulada
         if (usuario === DEMO.usuario && password === DEMO.password) return { ok: true };

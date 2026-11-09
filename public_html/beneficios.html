@@ -1,0 +1,114 @@
+<style>
+
+    /* ============================================================
+       BENEFICIOS
+       ============================================================ */
+    .beneficios{
+        background:var(--bg)
+    }
+    .grid-beneficios{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:22px
+    }
+    .card-beneficio{
+        background:var(--white);
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        padding:30px 26px;
+        transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .3s;
+        position:relative;
+        overflow:hidden
+    }
+    .card-beneficio::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:4px;
+        background:linear-gradient(90deg,var(--red),var(--gold));
+        transform:scaleX(0);
+        transform-origin:left;
+        transition:transform .5s var(--ease)
+    }
+    .card-beneficio:hover{
+        transform:translateY(-8px);
+        box-shadow:var(--shadow-md);
+        border-color:transparent
+    }
+    .card-beneficio:hover::before{
+        transform:scaleX(1)
+    }
+    .icono-wrapper{
+        width:62px;
+        height:62px;
+        border-radius:16px;
+        background:var(--navy-100);
+        display:grid;
+        place-items:center;
+        margin-bottom:20px;
+        transition:background .35s,transform .45s var(--ease)
+    }
+    .icono-wrapper svg{
+        width:30px;
+        height:30px;
+        color:var(--navy-800);
+        transition:color .35s
+    }
+    .card-beneficio:hover .icono-wrapper{
+        background:var(--red);
+        transform:rotate(-6deg) scale(1.08)
+    }
+    .card-beneficio:hover .icono-wrapper svg{
+        color:#fff
+    }
+    .card-beneficio h3{
+        font-size:1.05rem;
+        color:var(--navy-800);
+        margin-bottom:10px;
+        line-height:1.35
+    }
+    .card-beneficio p{
+        font-size:.9rem;
+        color:var(--muted);
+        line-height:1.65
+    }
+</style>
+<div class="container">
+    <div class="head-center reveal">
+        <span class="section-tag">Ventaja competitiva</span>
+        <h2 class="titulo-seccion">¿Por qué las pollerías y distribuidores nos eligen?</h2>
+        <p class="subtitulo-seccion">Optimizamos cada eslabón de la cadena avícola para proteger la rentabilidad de su negocio: del corral a su caja registradora.</p>
+    </div>
+    <div class="grid-beneficios stagger">
+        <article class="card-beneficio">
+            <div class="icono-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 7h7a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h8"/><path d="M5 21h14"/></svg>
+            </div>
+            <h3>Peso exacto, cero mermas</h3>
+            <p>Pesamos en balanzas calibradas y certificadas antes de cada despacho. Usted paga exactamente lo que recibe, kilo a kilo.</p>
+        </article>
+        <article class="card-beneficio">
+            <div class="icono-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3>Sanidad y bioseguridad</h3>
+            <p>Aves criadas bajo estrictos protocolos de nutrición y bioseguridad, libres de residuos de antibióticos y supervisadas por veterinarios.</p>
+        </article>
+        <article class="card-beneficio">
+            <div class="icono-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h-2v-6l3-6h9v12h-1"/><path d="M15 8h4l3 4v5h-2"/><circle cx="8" cy="17" r="2"/><circle cx="18" cy="17" r="2"/><path d="M9 5V3h4v2"/></svg>
+            </div>
+            <h3>Cadena de frío y flota propia</h3>
+            <p>Transporte acondicionado con monitoreo de temperatura para garantizar la máxima frescura desde la granja hasta su puerta.</p>
+        </article>
+        <article class="card-beneficio">
+            <div class="icono-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </div>
+            <h3>Abastecimiento estable</h3>
+            <p>Capacidad operativa para sostener volúmenes constantes, incluso en temporada alta o ante fluctuaciones del mercado.</p>
+        </article>
+    </div>
+</div>
