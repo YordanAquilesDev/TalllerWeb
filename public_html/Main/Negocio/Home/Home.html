@@ -3,40 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal mayorista — Granja Pollón</title>
-    <meta name="description" content="Pizarra de precios y lotes disponibles para clientes mayoristas Granja Pollón.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Hacer Pedido — Granja Pollón</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="Home.css" rel="stylesheet" type="text/css">
     <script src="Home.js" type="module" defer></script>
-    
 </head>
-<body class="dashboard-body">
+<body>
 
-    <!-- ================= HEADER PRIVADO (Dinámico) ================= -->
-    <div id="header-container"></div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="wrap header-content">
+            <a href="Home.html" class="logo">Granja <strong>Pollón</strong> <span>B2B</span></a>
+            
+            <nav class="nav" id="nav-dashboard">
+                <a href="Home.html" class="active">Hacer Pedido</a>
+                <a href="../Historial/Historial.html">Historial</a>
+                <a href="../Perfil/Perfil.html">Mi Perfil</a>
+                <a href="Contactar.html" class="btn-contacto">Soporte</a>
+            </nav>
 
-    <!-- ================= CONTENIDO PRINCIPAL ================= -->
-    <main class="container main-content">
+            <div class="user-box">
+                <span class="user-avatar">DA</span>
+                <div class="user-info">
+                    <strong class="user-name">Distribuidora Avícola Lima</strong>
+                    <small class="user-role">RUC: 20601234567</small>
+                </div>
+                <button class="btn-salir" id="btn-logout" title="Salir">✕</button>
+            </div>
+        </div>
+    </header>
 
-        <!-- KPIs DEL CLIENTE -->
-        <section id="kpis-container" class="stagger"></section>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="wrap main">
 
-        <!-- CABECERA DE LA PIZARRA Y FILTROS -->
-        <section id="pizarra-header-container" class="reveal"></section>
+        <!-- BARRA SUPERIOR DE PRECIOS DEL DÍA -->
+        <section class="precios-dia-bar">
+            <div class="precio-badge-item">
+                <span class="p-label">Pollo Limpio / Eviscerado (Hoy)</span>
+                <span class="p-val">S/ 6.00 <small>/ kg</small></span>
+                <span class="p-min">Mínimo: 5 pollos enteros (~12.5 kg)</span>
+            </div>
+            <div class="precio-badge-item">
+                <span class="p-label">Huevos Frescos (Hoy)</span>
+                <span class="p-val">S/ 6.00 <small>/ kg</small></span>
+                <span class="p-min">Mínimo: 5 kilos</span>
+            </div>
+        </section>
 
-        <!-- GRILLA DE LOTES Y ESTADO VACÍO -->
-        <section id="pizarra-grid-container" class="ofertas-section stagger"></section>
+        <!-- TÍTULO DE SECCIÓN -->
+        <div class="seccion-titulo">
+            <h1>Selecciona tu producto y haz tu pedido directo</h1>
+            <p>Ingresa la cantidad requerida en kilos y la fecha de despacho. El cálculo se realizará automáticamente.</p>
+        </div>
+
+        <!-- TARJETAS DE PEDIDO DIRECTO -->
+        <div class="grid-pedidos-grandes">
+
+            <!-- TARJETA 1: POLLO -->
+            <article class="card-gigante">
+                <div class="card-gigante-header pollo-bg">
+                    <span class="badge-cat">Pollo Fresco de Granja</span>
+                    <h2>Pedido de Pollo Eviscerado</h2>
+                    <p>Pollos pelados, limpios y eviscerados. Promedio estimado de 2.5 kg por unidad.</p>
+                </div>
+                <div class="card-gigante-body">
+                    <div class="info-precio-fijo">
+                        <span>Precio/kg: <strong>S/ 6.00</strong></span>
+                        <span>Mínimo: <strong>5 pollos</strong></span>
+                    </div>
+
+                    <form id="form-pollo" class="pedido-form">
+                        <div class="form-group">
+                            <label>Cantidad de Pollos Enteros:</label>
+                            <input type="number" id="pollo-cantidad" min="5" value="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Despacho:</label>
+                            <input type="date" id="pollo-fecha" required>
+                        </div>
+                        <div class="total-box">
+                            <span>Total Estimado:</span>
+                            <strong id="pollo-total">S/ 75.00</strong>
+                        </div>
+                        <button type="submit" class="btn-pedido btn-pollo">Confirmar Pedido de Pollo</button>
+                    </form>
+                </div>
+            </article>
+
+            <!-- TARJETA 2: HUEVOS -->
+            <article class="card-gigante">
+                <div class="card-gigante-header huevo-bg">
+                    <span class="badge-cat">Huevos de Postura</span>
+                    <h2>Pedido de Huevos por Kilo</h2>
+                    <p>Huevos frescos seleccionados de primera calidad, pesados y despachados por kilo exacto.</p>
+                </div>
+                <div class="card-gigante-body">
+                    <div class="info-precio-fijo">
+                        <span>Precio/kg: <strong>S/ 6.00</strong></span>
+                        <span>Mínimo: <strong>5 kilos</strong></span>
+                    </div>
+
+                    <form id="form-huevo" class="pedido-form">
+                        <div class="form-group">
+                            <label>Cantidad en Kilos:</label>
+                            <input type="number" id="huevo-cantidad" min="5" value="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Despacho:</label>
+                            <input type="date" id="huevo-fecha" required>
+                        </div>
+                        <div class="total-box">
+                            <span>Total Estimado:</span>
+                            <strong id="huevo-total">S/ 30.00</strong>
+                        </div>
+                        <button type="submit" class="btn-pedido btn-huevo">Confirmar Pedido de Huevos</button>
+                    </form>
+                </div>
+            </article>
+
+        </div>
 
     </main>
 
-    <!-- ================= PIE DE PÁGINA (Dinámico) ================= -->
-    <div id="footer-container"></div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="wrap">
+            <p>© 2026 Granja Pollón. Portal Mayorista B2B.</p>
+        </div>
+    </footer>
 
-    <!-- ================= MODAL CERRAR SESIÓN ================= -->
-    <div id="modal-container"></div>
+    <!-- MODAL LOGOUT -->
+    <div class="modal-backdrop" id="modal-logout" hidden>
+        <div class="modal">
+            <h3>¿Cerrar sesión?</h3>
+            <p>Saldrás de tu cuenta mayorista actual.</p>
+            <div class="modal-btns">
+                <button id="btn-cancelar-logout" type="button">Cancelar</button>
+                <button id="btn-confirmar-logout" class="danger" type="button">Salir</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
-

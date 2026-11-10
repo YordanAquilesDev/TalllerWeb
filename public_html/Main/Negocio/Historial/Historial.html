@@ -1,25 +1,104 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="Historial.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <div class="tikker-wraper">
-            <div class="ticker">
-                <p>Texto para mover</p>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Compras — Granja Pollón</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link href="Historial.css" rel="stylesheet" type="text/css">
+    <script src="Historial.js" type="module" defer></script>
+</head>
+<body>
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="header">
+        <div class="wrap header-content">
+            <a href="../Home/Home.html" class="logo">Granja <strong>Pollón</strong> <span>B2B</span></a>
+            
+            <nav class="nav" id="nav-dashboard">
+                <a href="../Home/Home.html">Catálogo</a>
+                <a href="Historial.html" class="active">Historial</a>
+                <a href="../Perfil/Perfil.html">Mi Perfil</a>
+                <a href="../Home/Contactar.html" class="btn-contacto">Soporte</a>
+            </nav>
+
+            <div class="user-box">
+                <span class="user-avatar">DA</span>
+                <div class="user-info">
+                    <strong class="user-name">Distribuidora Avícola Lima</strong>
+                    <small class="user-role">RUC: 20601234567</small>
+                </div>
+                <button class="btn-salir" id="btn-logout" title="Salir">✕</button>
             </div>
         </div>
-        
-        <div class="caja fadeInDown">
-            esto es una animacion
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="wrap main">
+
+        <!-- CABECERA Y FILTROS -->
+        <section class="filter-section">
+            <div class="filter-title">
+                <h1>Historial de Pedidos y Despachos</h1>
+                <p id="resultados-count">Cargando historial...</p>
+            </div>
+            <div class="filter-controls">
+                <input type="text" id="input-buscar" placeholder="Buscar por N° pedido o producto...">
+                <select id="select-estado">
+                    <option value="todos">Todos los estados</option>
+                    <option value="entregado">Entregado</option>
+                    <option value="transito">En tránsito</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- LISTA / TABLA DE HISTORIAL -->
+        <section class="table-container">
+            <table class="historial-table">
+                <thead>
+                    <tr>
+                        <th>N° Pedido</th>
+                        <th>Fecha</th>
+                        <th>Detalle del Lote / Producto</th>
+                        <th>Cantidad</th>
+                        <th>Monto Total</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="historial-tbody">
+                    <!-- Filas inyectadas por JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ESTADO VACÍO -->
+        <div id="empty-state" class="empty-state" hidden>
+            <p>No se encontraron registros de compras para este filtro.</p>
         </div>
-        
-    </body>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="wrap">
+            <p>© 2026 Granja Pollón. Portal Mayorista.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL LOGOUT -->
+    <div class="modal-backdrop" id="modal-logout" hidden>
+        <div class="modal">
+            <h3>¿Cerrar sesión?</h3>
+            <p>Saldrás de tu cuenta mayorista actual.</p>
+            <div class="modal-btns">
+                <button id="btn-cancelar-logout" type="button">Cancelar</button>
+                <button id="btn-confirmar-logout" class="danger" type="button">Salir</button>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>

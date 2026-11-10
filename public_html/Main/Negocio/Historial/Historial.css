@@ -1,53 +1,268 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
-*/
-/* 
-    Created on : 15 set. 2026, 12:21:52 p. m.
-    Author     : Administrador
-*/
-.tikker-wraper{
-    
-}
-.ticker{
-    color:#fff;
-    padding-left: 100%;
-    white-space: nowrap;
-    animation: mover 7s linear infinite;
-}
-.ticker p{
-    padding: 5px opx;
+:root {
+    --bg: #F3F4F6;
+    --white: #FFFFFF;
+    --dark: #1F2937;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    --primary: #0F2C59;
+    --accent: #D80032;
 }
 
-@KeyFrames mover{
-    0%{
-        transform: translateX(0);
-    }
-    100%{
-       transform: translateX(-125%);
-    }
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+}
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
+/* Header minimalista */
+.header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+}
+.logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.1rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+.logo span {
+    background: var(--dark);
+    color: #F5B301;
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+.nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+.nav a.active, .nav a:hover {
+    color: var(--accent);
+}
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 1px solid var(--border);
+    padding-left: 15px;
+}
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+.user-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.user-role {
+    font-size: 0.68rem;
+    color: var(--muted);
+}
+.btn-salir {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
 
+/* Sección Principal y Filtros */
+.main {
+    padding: 30px 20px;
+}
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.filter-title h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.3rem;
+    margin: 0 0 4px 0;
+}
+.filter-title p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.filter-controls input, .filter-controls select {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    outline: none;
+    background: #fff;
+}
 
- .fadeInDown {
- 
-  animation-name: fadeInDown;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  }
-  
-  
+/* Tabla de Historial */
+.table-container {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+.historial-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.85rem;
+}
+.historial-table th {
+    background: #F9FAFB;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 600;
+}
+.historial-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--dark);
+}
+.historial-table tr:last-child td {
+    border-bottom: none;
+}
+.total-col {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    color: var(--accent);
+}
 
-  @keyframes fadeInDown {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
- } 
+/* Badges de Estado */
+.status-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.tag-success {
+    background: #DEF7EC;
+    color: #03543F;
+}
+.tag-info {
+    background: #E1EFFE;
+    color: #1E429F;
+}
+.tag-warning {
+    background: #FFE8D6;
+    color: #A04000;
+}
+.tag-danger {
+    background: #FDE8E8;
+    color: #9B1C1C;
+}
+
+.btn-action {
+    background: #F3F4F6;
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--dark);
+}
+.btn-action:hover {
+    background: #E5E7EB;
+}
+
+/* Estado vacío y Modal */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-top: 15px;
+}
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: grid;
+    place-items: center;
+    z-index: 100;
+}
+.modal-backdrop[hidden] {
+    display: none !important;
+}
+.modal {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    width: 320px;
+    text-align: center;
+}
+.modal h3 {
+    margin: 0 0 8px 0;
+}
+.modal p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+.modal-btns {
+    display: flex;
+    gap: 10px;
+}
+.modal-btns button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+.modal-btns button.danger {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+}

@@ -22,8 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const REDIRECT_URL = '../Negocio/Home/Home.html';
     const STORAGE_KEY  = 'gp_usuario_recordado';
 
-    // Credenciales de demostración (solo para pruebas locales)
-    const DEMO = { usuario: 'demo', password: '12345678' };
+    /* ---------- Base de datos simulada de usuarios ---------- */
+    // Aquí puedes registrar los distintos usuarios, sus contraseñas y el rol/perfil asociado
+    const USUARIOS_VALIDOS = {
+        "U123": { password: "12345678", perfil: "mayorista_preferencial" },
+        "aquiles": { password: "123", perfil: "distribuidor_norte" },
+        "yordan": { password: "123", perfil: "administrador" },
+        "10293847561": { password: "passwordRUC", perfil: "corporativo" } // Ejemplo usando RUC
+    };
 
     /* ---------- helpers ---------- */
     function setLoading(loading) {
@@ -33,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showAlert(type, message) {
-        loginAlert.className = 'login-alert'; // reinicia para re-disparar la animación
-        void loginAlert.offsetWidth;          // reflow
+        loginAlert.className = 'login-alert'; 
+        void loginAlert.offsetWidth;          
         loginAlert.classList.add(type);
         loginAlert.textContent = message;
     }
@@ -72,12 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     correoInput.addEventListener('input', () => { setFieldError(correoInput, correoError, ''); clearAlerts(); });
     passwordInput.addEventListener('input', () => { setFieldError(passwordInput, passwordError, ''); clearAlerts(); });
 
-   // validacion de los inpupts  del formulario
+    /* ---------- validación de los inputs del formulario ---------- */
     function validarFormulario() {
         let valido = true;
         const valor = correoInput.value.trim();
-        
-        
 
         if (!valor) {
             setFieldError(correoInput, correoError, 'Ingrese su correo o RUC.');
@@ -87,18 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!passwordInput.value) {
             setFieldError(passwordInput, passwordError, 'Ingrese su contraseña.');
             valido = false;
-        } else if (passwordInput.value.length < 8) {
-            setFieldError(passwordInput, passwordError, 'La contraseña debe tener al menos 8 caracteres.');
+        } else if (passwordInput.value.length < 3) { // Ajustado temporalmente si usas contraseñas cortas de prueba como '123'
+            setFieldError(passwordInput, passwordError, 'La contraseña es muy corta.');
             valido = false;
         }
 
         return valido;
     }
 
-    
+    /* ---------- Función de autenticación ampliada ---------- */
     async function authenticate(usuario, password) {
-        await new Promise(r => setTimeout(r, 1500)); // latencia simulada
-        if (usuario === "U123" && password === "12345678") return { ok: true };
+        await new Promise(r => setTimeout(r, 1500)); // Latencia simulada
+        
+        // Verificamos si el usuario existe en nuestro objeto y la contraseña coincide
+        const cuenta = USUARIOS_VALIDOS[usuario];
+        if (cuenta && cuenta.password === password) {
+            return { ok: true, perfil: cuenta.perfil };
+        }
+        
         throw new Error('Credenciales incorrectas');
     }
 
@@ -113,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const usuario = correoInput.value.trim();
-            await authenticate(usuario, passwordInput.value);
+            const resultadoAuth = await authenticate(usuario, passwordInput.value);
 
             // Persistir o borrar el "Recordar mi cuenta"
             if (recordarChk.checked) localStorage.setItem(STORAGE_KEY, usuario);
@@ -123,10 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
             btnText.textContent = 'Éxito';
             btnSpinner.hidden = true;
 
-            setTimeout(() => { window.location.href = REDIRECT_URL; }, 1200);
+            // Redirigimos enviando tanto el usuario como el perfil detectado mediante parámetros GET
+            setTimeout(() => { 
+                window.location.href = `${REDIRECT_URL}?usuario=${encodeURIComponent(usuario)}&perfil=${encodeURIComponent(resultadoAuth.perfil)}`; 
+            }, 1200);
+
         } catch (err) {
-            console.log(err);
-            console.log(err);
             console.log(err);
             setLoading(false);
             showAlert('error', 'Credenciales incorrectas. Verifique su usuario y contraseña.');
