@@ -1,11 +1,9 @@
 /* ============================================================
-   GRANJA POLLÓN — Afiliacion.js
-   Solicitud de cuenta mayorista
+   GRANJA POLLÓN — Afiliacion.js (Actualizado)
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    /* ---------- referencias ---------- */
     const form       = document.getElementById('form-afiliacion');
     const card       = document.getElementById('registro-card');
     const alertBox   = document.getElementById('registro-alert');
@@ -28,12 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const $ = (id) => document.getElementById(id);
 
-    /* ============================================================
-       VALIDADORES
-       ============================================================ */
-    const esCorreo = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-    // Algoritmo oficial (módulo 11) del dígito verificador del RUC — SUNAT
     function rucValido(ruc) {
         if (!/^\d{11}$/.test(ruc)) return false;
         const pesos = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
@@ -51,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return !message;
     }
 
-    // ¿El campo RUC es obligatorio según el tipo de contribuyente?
     const rucRequerido = () => tipoSelect.value !== 'DNI';
     const razonRequerida = () => tipoSelect.value === 'RUC20';
 
@@ -73,8 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'razon_social':
                 if (!v) return setFieldError(input, razonRequerida() ? 'Ingrese la razón social de la empresa.' : '');
                 return setFieldError(input, v.length >= 3 ? '' : 'Nombre demasiado corto.');
-            case 'correo':
-                return setFieldError(input, esCorreo(v) ? '' : 'Ingrese un correo electrónico válido.');
+            case 'direccion':
+                return setFieldError(input, v.length >= 5 ? '' : 'Ingrese una dirección válida.');
+            case 'username':
+                return setFieldError(input, v.length >= 3 ? '' : 'Ingrese un nombre de usuario válido.');
             case 'password':
                 return setFieldError(input, v.length >= 8 ? '' : 'Mínimo 8 caracteres.');
             case 'password_confirm':
@@ -85,19 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* ============================================================
-       CAMPOS NUMÉRICOS (solo dígitos)
-       ============================================================ */
     ['dni', 'telefono', 'ruc'].forEach((id) => {
         const input = $(id);
-        input.addEventListener('input', () => {
-            input.value = input.value.replace(/\D/g, '');
-        });
+        if (input) {
+            input.addEventListener('input', () => {
+                input.value = input.value.replace(/\D/g, '');
+            });
+        }
     });
 
-    /* ============================================================
-       TIPO DE CONTRIBUYENTE DINÁMICO
-       ============================================================ */
     function actualizarRequisitos() {
         rucHint.textContent = rucRequerido() ? '(Obligatorio)' : '(Opcional)';
         razonHint.textContent = razonRequerida() ? '(Obligatorio)' : '(Opcional)';
@@ -107,9 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     tipoSelect.addEventListener('change', actualizarRequisitos);
 
-    /* ============================================================
-       MOSTRAR / OCULTAR CONTRASEÑAS
-       ============================================================ */
     document.querySelectorAll('.btn-toggle-pw').forEach((btn) => {
         btn.addEventListener('click', () => {
             const input = $(btn.dataset.target);
@@ -117,15 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
             input.type = mostrar ? 'text' : 'password';
             btn.querySelector('.icon-eye').hidden = mostrar;
             btn.querySelector('.icon-eye-off').hidden = !mostrar;
-            btn.setAttribute('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña');
-            btn.setAttribute('aria-pressed', String(mostrar));
             input.focus();
         });
     });
 
-    /* ============================================================
-       MEDIDOR DE FORTALEZA
-       ============================================================ */
     function medirFortaleza(pw) {
         if (!pw) { pwStrength.dataset.nivel = '0'; pwLabel.textContent = ''; return; }
         let puntos = 0;
@@ -139,37 +120,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     pwInput.addEventListener('input', () => medirFortaleza(pwInput.value));
 
-    /* ============================================================
-       LIMPIEZA DE ERRORES AL ESCRIBIR + PROGRESO
-       ============================================================ */
-    const campos = ['nombre', 'apellido', 'dni', 'telefono', 'ruc', 'razon_social', 'correo', 'password', 'password_confirm'];
+    const campos = ['nombre', 'apellido', 'dni', 'telefono', 'ruc', 'razon_social', 'direccion', 'username', 'password', 'password_confirm'];
 
     campos.forEach((id) => {
         const input = $(id);
-        input.addEventListener('input', () => {
-            if (input.id === 'password_confirm' || input.id === 'password') {
-                // revalidar coincidencia en vivo
-                if (pwConfirm.value) validarCampo(pwConfirm);
-            }
-            actualizarProgreso();
-        });
-        input.addEventListener('blur', () => {
-            if (input.value.trim()) validarCampo(input);
-            actualizarProgreso();
-        });
+        if (input) {
+            input.addEventListener('input', () => {
+                if (input.id === 'password_confirm' || input.id === 'password') {
+                    if (pwConfirm.value) validarCampo(pwConfirm);
+                }
+                actualizarProgreso();
+            });
+            input.addEventListener('blur', () => {
+                if (input.value.trim()) validarCampo(input);
+                actualizarProgreso();
+            });
+        }
     });
     terminosChk.addEventListener('change', () => { $('terminos-error').textContent = ''; actualizarProgreso(); });
 
     function campoCompleto(id) {
         const input = $(id);
+        if (!input) return false;
         if (input.id === 'ruc') return rucRequerido() ? rucValido(input.value.trim()) : true;
         if (input.id === 'razon_social') return razonRequerida() ? input.value.trim().length >= 3 : true;
         return input.value.trim() !== '' && !$(id + '-error').textContent && validarCampo(input);
     }
 
     function actualizarProgreso() {
-        const requeridos = ['nombre', 'apellido', 'dni', 'telefono', 'correo', 'password', 'password_confirm'];
-        let total = requeridos.length + 1; // + términos
+        const requeridos = ['nombre', 'apellido', 'dni', 'telefono', 'direccion', 'username', 'password', 'password_confirm'];
+        let total = requeridos.length + 1; 
         let listos = 0;
         requeridos.forEach((id) => { if (campoCompleto(id)) listos++; });
         if (terminosChk.checked) listos++;
@@ -178,15 +158,38 @@ document.addEventListener('DOMContentLoaded', () => {
         progressLabel.textContent = pct + '% completado';
     }
 
-    /* ============================================================
-       ENVÍO DEL FORMULARIO
-       ⚠️ MODO DEMO: la solicitud se simula localmente.
-       En producción, reemplace el contenido de enviarSolicitud()
-       por un fetch POST a su endpoint (p. ej. /api/afiliacion).
-       ============================================================ */
     async function enviarSolicitud(datos) {
-        await new Promise((r) => setTimeout(r, 1800)); // latencia simulada
-        // fetch('/api/afiliacion', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(datos) })
+        await new Promise((r) => setTimeout(r, 1800));
+
+        const nuevoUsuario = {
+            username: datos.username.trim(),
+            password: datos.password,
+            perfil: datos.tipo_documento === 'RUC20' ? 'Cliente Corporativo' : 'Cliente Mayorista',
+            razonSocial: datos.razon_social.trim() || `${datos.nombre} ${datos.apellido}`,
+            ruc: datos.ruc || datos.dni || 'Sin RUC',
+            correo: `${datos.username.toLowerCase()}@granja.pe`,
+            telefono: `+51 ${datos.telefono}`,
+            iniciales: datos.nombre.substring(0, 2).toUpperCase(),
+            direccionPrincipal: "Punto de Despacho Principal",
+            direccionTexto: datos.direccion,
+            creditoAprobado: "S/ 30,000.00",
+            creditoUtilizado: "S/ 0.00",
+            creditoDisponible: "S/ 30,000.00"
+        };
+
+        let baseUsuarios = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
+
+        if (baseUsuarios[nuevoUsuario.username]) {
+            throw new Error('El usuario ya se encuentra registrado.');
+        }
+
+        baseUsuarios[nuevoUsuario.username] = {
+            password: nuevoUsuario.password,
+            perfil: nuevoUsuario.perfil,
+            datos: nuevoUsuario
+        };
+
+        localStorage.setItem('gp_usuarios_registrados', JSON.stringify(baseUsuarios));
         return { ok: true };
     }
 
@@ -195,12 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
         alertBox.className = 'registro-alert';
         alertBox.textContent = '';
 
-        // Validar todo
         let valido = true;
         let primero = null;
         campos.forEach((id) => {
             const input = $(id);
-            // los opcionales vacíos no bloquean
+            if (!input) return;
             if (!input.value.trim() && id === 'ruc' && !rucRequerido()) return;
             if (!input.value.trim() && id === 'razon_social' && !razonRequerida()) return;
             if (!validarCampo(input)) { valido = false; primero = primero || input; }
@@ -220,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Estado de carga
         btnSubmit.disabled = true;
         btnSpinner.hidden = false;
         btnText.textContent = 'Enviando solicitud…';
@@ -229,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const datos = Object.fromEntries(new FormData(form).entries());
             await enviarSolicitud(datos);
 
-            // Mostrar panel de éxito
             form.hidden = true;
             document.querySelector('.progress-wrap').hidden = true;
             document.querySelector('.form-terms').hidden = true;
@@ -240,11 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btnSpinner.hidden = true;
             btnText.textContent = 'Enviar solicitud de afiliación';
             alertBox.classList.add('error');
-            alertBox.textContent = 'No pudimos procesar su solicitud. Intente nuevamente o llame al 865 232 78.';
+            alertBox.textContent = err.message || 'No pudimos procesar su solicitud.';
         }
     });
 
-    /* ---------- estado inicial ---------- */
     actualizarRequisitos();
     medirFortaleza('');
     actualizarProgreso();

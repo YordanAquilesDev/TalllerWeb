@@ -147,7 +147,7 @@
 
     btnLogout.addEventListener("click", () => modal.hidden = false);
     if (btnCancelar) btnCancelar.addEventListener("click", () => modal.hidden = true);
-    if (btnConfirmar) btnConfirmar.addEventListener("click", () => window.location.href = "../Login/Login.html");
+    if (btnConfirmar) btnConfirmar.addEventListener("click", () => window.location.href = "../../../index.html");
 
     modal.addEventListener("click", (e) => {
       if (e.target === modal) modal.hidden = true;

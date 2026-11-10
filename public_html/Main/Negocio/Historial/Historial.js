@@ -1,53 +1,59 @@
+/* ============================================================
+   GRANJA POLLÓN — Historial.js (100% LocalStorage Dinámico)
+   ============================================================ */
 (function () {
   'use strict';
 
   const params = new URLSearchParams(window.location.search);
   const usuarioId = params.get('usuario') || 'U123';
 
-  const CLIENTES_DB = {
-    "U123": { nombre: "Distribuidora Avícola Lima", ruc: "20601234567", iniciales: "DA" },
-    "aquiles": { nombre: "Avícola Don Aquiles E.I.R.L.", ruc: "20589632145", iniciales: "AQ" },
-    "yordan": { nombre: "Comercializadora Yordancito S.A.C.", ruc: "20478523698", iniciales: "YD" }
-  };
+  // Obtener la base de datos de usuarios registrados en el navegador
+  function obtenerClientesRegistrados() {
+    const baseFija = {
+      "U123": { razonSocial: "Distribuidora Avícola Lima S.A.C.", ruc: "20601234567", iniciales: "DA" },
+      "aquiles": { razonSocial: "Avícola Don Aquiles E.I.R.L.", ruc: "20589632145", iniciales: "AQ" },
+      "yordan": { razonSocial: "Comercializadora Yordancito S.A.C.", ruc: "20478523698", iniciales: "YD" }
+    };
 
-  const HISTORIAL_BASE = {
-    "U123": [
-      { id: "PED-8041", fecha: "10/11/2026", producto: "Pollo Vivo - Línea Cobb500", cantidad: "150 jabas", total: 3060.00, estado: "transito" },
-      { id: "PED-7982", fecha: "05/11/2026", producto: "Pollo Beneficiado Entero Eviscerado", cantidad: "80 jabas", total: 1564.00, estado: "entregado" }
-    ],
-    "aquiles": [
-      { id: "PED-8050", fecha: "09/11/2026", producto: "Pollo Vivo Selección Especial", cantidad: "300 jabas", total: 7038.00, estado: "transito" }
-    ],
-    "yordan": [
-      { id: "PED-8025", fecha: "07/11/2026", producto: "Huevos Blancos Comerciales Calibre A", cantidad: "40 jabas", total: 6200.00, estado: "pendiente" }
-    ]
-  };
+    const registrados = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
+    const mapeados = {};
+
+    Object.keys(registrados).forEach(key => {
+      mapeados[key] = {
+        nombre: registrados[key].datos.razonSocial,
+        ruc: registrados[key].datos.ruc,
+        iniciales: registrados[key].datos.iniciales || key.substring(0, 2).toUpperCase()
+      };
+    });
+
+    return { ...baseFija, ...mapeados };
+  }
+
+  const CLIENTES_DB = obtenerClientesRegistrados();
 
   const iniciarHistorial = () => {
     renderizarUsuario();
     
-    // Obtener pedidos base y combinar con los nuevos pedidos de localStorage
+    // Obtener los pedidos exclusivos del usuario desde su localStorage
     const keyStorage = `pedidos_${usuarioId}`;
-    const pedidosNuevos = JSON.parse(localStorage.getItem(keyStorage)) || [];
-    const pedidosBase = HISTORIAL_BASE[usuarioId] || HISTORIAL_BASE["U123"];
-    
-    const listaCompleta = [...pedidosNuevos, ...pedidosBase];
+    const listaPedidos = JSON.parse(localStorage.getItem(keyStorage)) || [];
 
-    renderizarTabla(listaCompleta);
-    iniciarFiltros(listaCompleta);
+    renderizarTabla(listaPedidos);
+    iniciarFiltros(listaPedidos);
     iniciarModal();
   };
 
   function renderizarUsuario() {
-    const cliente = CLIENTES_DB[usuarioId] || CLIENTES_DB["U123"];
+    const cliente = CLIENTES_DB[usuarioId] || { nombre: usuarioId, ruc: "RUC General", iniciales: "US" };
     const nombreEl = document.querySelector('.user-name');
     const rucEl = document.querySelector('.user-role');
     const avatarEl = document.querySelector('.user-avatar');
 
-    if (nombreEl) nombreEl.textContent = cliente.nombre;
+    if (nombreEl) nombreEl.textContent = cliente.nombre || cliente.razonSocial;
     if (rucEl) rucEl.textContent = `RUC: ${cliente.ruc}`;
     if (avatarEl) avatarEl.textContent = cliente.iniciales;
 
+    // Mantener la sesión propagando el parámetro usuario en el menú
     document.querySelectorAll('.nav a').forEach(link => {
       const href = link.getAttribute('href');
       if (href && !href.includes('Contactar')) {
@@ -71,7 +77,7 @@
     if (!tbody) return;
 
     if (lista.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 20px; color: var(--muted);">No hay pedidos registrados.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">No tienes pedidos registrados todavía. Realiza tu primer pedido desde el catálogo.</td></tr>`;
       return;
     }
 
@@ -84,7 +90,7 @@
         <td class="total-col">S/ ${item.total.toFixed(2)}</td>
         <td>${getBadgeEstado(item.estado)}</td>
         <td>
-          <button class="btn-action" onclick="alert('Descargando guía del pedido ${item.id}...')">Guía / Ticket</button>
+          <button class="btn-action" onclick="alert('Descargando guía o ticket del pedido ${item.id}...')">Guía / Ticket</button>
         </td>
       </tr>
     `).join('');
@@ -97,8 +103,8 @@
     const emptyState = document.getElementById("empty-state");
 
     const aplicarFiltro = () => {
-      const texto = inputBuscar.value.toLowerCase().trim();
-      const estado = selectEstado.value;
+      const texto = inputBuscar ? inputBuscar.value.toLowerCase().trim() : "";
+      const estado = selectEstado ? selectEstado.value : "todos";
 
       let filtrados = pedidosBase.filter(p => {
         const matchText = p.id.toLowerCase().includes(texto) || p.producto.toLowerCase().includes(texto);

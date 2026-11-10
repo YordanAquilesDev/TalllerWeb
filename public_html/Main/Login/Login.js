@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ---------- Base de datos simulada de usuarios ---------- */
     // Aquí puedes registrar los distintos usuarios, sus contraseñas y el rol/perfil asociado
+    // ya no seria nesesario aser una simulacion  sin sentido ahora sera mejor con la creacion de usuaruos 
     const USUARIOS_VALIDOS = {
         "U123": { password: "12345678", perfil: "mayorista_preferencial" },
         "aquiles": { password: "123", perfil: "distribuidor_norte" },
@@ -99,12 +100,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return valido;
     }
 
-    /* ---------- Función de autenticación ampliada ---------- */
+    
+    /* ---------- Base de datos de usuarios (Combinando por defecto + localStorage) ---------- */
+    function obtenerUsuariosValidos() {
+        // Usuarios predeterminados de respaldo
+        const usuariosBase = {
+            "U123": { password: "12345678", perfil: "mayorista_preferencial" },
+            "aquiles": { password: "123", perfil: "distribuidor_norte" },
+            "yordan": { password: "123", perfil: "administrador" },
+            "10293847561": { password: "passwordRUC", perfil: "corporativo" }
+        };
+
+        // Recuperar los usuarios registrados mediante el formulario de afiliación
+        const registrados = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
+
+        // Unimos ambos objetos
+        return { ...usuariosBase, ...registrados };
+    }
+
+    /* ---------- Función de autenticación dinámica ---------- */
     async function authenticate(usuario, password) {
         await new Promise(r => setTimeout(r, 1500)); // Latencia simulada
         
-        // Verificamos si el usuario existe en nuestro objeto y la contraseña coincide
+        const USUARIOS_VALIDOS = obtenerUsuariosValidos();
         const cuenta = USUARIOS_VALIDOS[usuario];
+
         if (cuenta && cuenta.password === password) {
             return { ok: true, perfil: cuenta.perfil };
         }
