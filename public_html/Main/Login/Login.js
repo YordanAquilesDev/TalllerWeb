@@ -1,6 +1,5 @@
 /* ============================================================
    GRANJA POLLÓN — Login.js
-   Lógica del portal de clientes mayoristas
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -22,16 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const REDIRECT_URL = '../Negocio/Home/Home.html';
     const STORAGE_KEY  = 'gp_usuario_recordado';
 
-    /* ---------- Base de datos simulada de usuarios ---------- */
-    // Aquí puedes registrar los distintos usuarios, sus contraseñas y el rol/perfil asociado
-    // ya no seria nesesario aser una simulacion  sin sentido ahora sera mejor con la creacion de usuaruos 
-    const USUARIOS_VALIDOS = {
-        "U123": { password: "12345678", perfil: "mayorista_preferencial" },
-        "aquiles": { password: "123", perfil: "distribuidor_norte" },
-        "yordan": { password: "123", perfil: "administrador" },
-        "10293847561": { password: "passwordRUC", perfil: "corporativo" } // Ejemplo usando RUC
-    };
-
+  
     /* ---------- helpers ---------- */
     function setLoading(loading) {
         btnLogin.disabled = loading;
@@ -101,28 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    /* ---------- Base de datos de usuarios (Combinando por defecto + localStorage) ---------- */
-    function obtenerUsuariosValidos() {
-        // Usuarios predeterminados de respaldo
-        const usuariosBase = {
-            "U123": { password: "12345678", perfil: "mayorista_preferencial" },
-            "aquiles": { password: "123", perfil: "distribuidor_norte" },
-            "yordan": { password: "123", perfil: "administrador" },
-            "10293847561": { password: "passwordRUC", perfil: "corporativo" }
-        };
-
-        // Recuperar los usuarios registrados mediante el formulario de afiliación
-        const registrados = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
-
-        // Unimos ambos objetos
-        return { ...usuariosBase, ...registrados };
-    }
-
+   
     /* ---------- Función de autenticación dinámica ---------- */
     async function authenticate(usuario, password) {
         await new Promise(r => setTimeout(r, 1500)); // Latencia simulada
         
-        const USUARIOS_VALIDOS = obtenerUsuariosValidos();
+        const USUARIOS_VALIDOS =JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
         const cuenta = USUARIOS_VALIDOS[usuario];
 
         if (cuenta && cuenta.password === password) {
@@ -167,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* ---------- enlace "¿Olvidaste tu contraseña?" ---------- */
+    
     forgotLink.addEventListener('click', (e) => {
         e.preventDefault();
         showAlert('info', 'Para restablecer su contraseña, contacte a su asesor comercial al 865 232 78.');

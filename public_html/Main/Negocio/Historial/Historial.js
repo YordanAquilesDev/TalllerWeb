@@ -1,5 +1,5 @@
 /* ============================================================
-   GRANJA POLLÓN — Historial.js (100% LocalStorage Dinámico)
+   GRANJA POLLÓN — Historial.js
    ============================================================ */
 (function () {
   'use strict';

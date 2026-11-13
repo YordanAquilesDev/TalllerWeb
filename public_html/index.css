@@ -8,7 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 */
 
 /* ============================================================
-   GRANJA POLLÓN — Landing Corporativa v2.0
+   GRANJA POLLÓN — Landing Corporativa
    ============================================================ */
 :root{
     --navy-900:#071938;
@@ -67,7 +67,7 @@ img,svg{
     padding:0 24px
 }
 
-/* ---------- utilidades de animación ---------- */
+/* ---------- utilidades de animación con javascrip---------- */
 .reveal{
     opacity:0;
     transform:translateY(28px);
@@ -123,6 +123,7 @@ img,svg{
     transition-delay:.55s
 }
 
+
 /* ---------- botones ---------- */
 .btn{
     display:inline-flex;
@@ -145,6 +146,8 @@ img,svg{
     height:18px;
     transition:transform .35s var(--ease)
 }
+
+/*   Tranciciones*/
 .btn:hover svg{
     transform:translateX(4px)
 }
@@ -190,7 +193,7 @@ img,svg{
 }
 
 /* ============================================================
-   TOPBAR
+   TOPBAR --Cabesera Superior
    ============================================================ */
 .topbar{
     background:var(--navy-900);

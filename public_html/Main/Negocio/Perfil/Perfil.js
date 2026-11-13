@@ -1,5 +1,5 @@
 /* ============================================================
-   GRANJA POLLÓN — Perfil.js (Integrado con localStorage)
+   GRANJA POLLÓN — Perfil.js
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -7,89 +7,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const usuarioId = params.get('usuario') || 'U123';
 
-    // Base de datos fija combinada con los usuarios registrados en localStorage
-    function obtenerPerfilesTotales() {
-        const perfilesBase = {
-            "U123": {
-                razonSocial: "Distribuidora Avícola Lima S.A.C.",
-                ruc: "20601234567",
-                correo: "ventas@avicolalima.pe",
-                telefono: "+51 987 654 321",
-                badge: "Cliente Mayorista Plus",
-                iniciales: "DAL",
-                direccionPrincipal: "Camal Municipal Santa Anita - Stand 14",
-                direccionTexto: "Av. Rosa Toro 123, Santa Anita, Lima",
-                creditoAprobado: "S/ 50,000.00",
-                creditoUtilizado: "S/ 12,400.00",
-                creditoDisponible: "S/ 37,600.00"
-            },
-            "aquiles": {
-                razonSocial: "Avícola Don Aquiles E.I.R.L.",
-                ruc: "20589632145",
-                correo: "contacto@donaquiles.com",
-                telefono: "+51 912 345 678",
-                badge: "Distribuidor Preferencial Norte",
-                iniciales: "AQ",
-                direccionPrincipal: "Mercado Central Mayorista - Puesto 08",
-                direccionTexto: "Av. Universitaria 450, Los Olivos, Lima",
-                creditoAprobado: "S/ 25,000.00",
-                creditoUtilizado: "S/ 5,000.00",
-                creditoDisponible: "S/ 20,000.00"
-            },
-            "yordan": {
-                razonSocial: "Comercializadora Yordancito S.A.C.",
-                ruc: "20478523698",
-                correo: "yordan@comercializadora.pe",
-                telefono: "+51 999 888 777",
-                badge: "Cliente Corporativo",
-                iniciales: "YD",
-                direccionPrincipal: "Centro de Acopio Sur - Local B",
-                direccionTexto: "Panamericana Sur Km. 19, Villa El Salvador",
-                creditoAprobado: "S/ 40,000.00",
-                creditoUtilizado: "S/ 15,000.00",
-                creditoDisponible: "S/ 25,000.00"
-            }
-        };
+    const PERFILES_DB = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
+    
+    // Obtenemos el registro bruto del usuario
+    const registroUsuario = PERFILES_DB[usuarioId] || PERFILES_DB["U123"];
 
-        // Buscar usuarios creados en el formulario de Afiliación
-        const registrados = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
-        const perfilesRegistradosMapeados = {};
-
-        Object.keys(registrados).forEach(key => {
-            perfilesRegistradosMapeados[key] = registrados[key].datos;
-        });
-
-        return { ...perfilesBase, ...perfilesRegistradosMapeados };
+    // Si los datos están anidados en .datos (provenientes de Afiliacion.js), los unificamos o extraemos
+    let datosCliente = {};
+    if (registroUsuario) {
+        datosCliente = registroUsuario.datos ? { ...registroUsuario.datos, password: registroUsuario.password, perfil: registroUsuario.perfil } : registroUsuario;
     }
 
-    const PERFILES_DB = obtenerPerfilesTotales();
-    const datosCliente = PERFILES_DB[usuarioId] || PERFILES_DB["U123"];
-
-    // Inyectar datos en el formulario de perfil
+    // Referencias de inputs del perfil general
     const inputRazon = document.getElementById('razon-social');
     const inputRuc = document.getElementById('ruc');
     const inputCorreo = document.getElementById('correo');
     const inputTelefono = document.getElementById('telefono');
 
-    if (inputRazon) inputRazon.value = datosCliente.razonSocial;
-    if (inputRuc) inputRuc.value = datosCliente.ruc;
-    if (inputCorreo) inputCorreo.value = datosCliente.correo;
-    if (inputTelefono) inputTelefono.value = datosCliente.telefono;
+    // Referencias de inputs de ubicación / dirección
+    const inputDirPrincipal = document.getElementById('dir-principal');
+    const inputDirTexto = document.getElementById('dir-texto');
+
+    // Inyectar datos en el formulario de perfil
+    if (inputRazon)
+        inputRazon.value = datosCliente.razonSocial || '';
+    if (inputRuc)
+        inputRuc.value = datosCliente.ruc || '';
+    if (inputCorreo)
+        inputCorreo.value = datosCliente.correo || '';
+    if (inputTelefono)
+        inputTelefono.value = datosCliente.telefono || '';
+
+    // Inyectar datos de ubicación en los inputs
+    if (inputDirPrincipal)
+        inputDirPrincipal.value = datosCliente.direccionPrincipal || "Punto de Despacho Principal";
+    if (inputDirTexto)
+        inputDirTexto.value = datosCliente.direccionTexto || "";
 
     // Actualizar elementos visuales del Sidebar
     const avatarBox = document.querySelector('.avatar-placeholder');
     const tituloSidebar = document.querySelector('.profile-avatar-box h3');
     const userBadge = document.querySelector('.user-badge');
 
-    if (avatarBox) avatarBox.textContent = datosCliente.iniciales || 'CL';
-    if (tituloSidebar) tituloSidebar.textContent = datosCliente.razonSocial;
-    if (userBadge) userBadge.textContent = datosCliente.perfil || datosCliente.badge || 'Cliente Mayorista';
-
-    // Actualizar dirección principal y de despacho
-    const dirFuerte = document.querySelector('.address-item strong');
-    const dirP = document.querySelector('.address-item p');
-    if (dirFuerte) dirFuerte.textContent = datosCliente.direccionPrincipal || "Dirección Registrada";
-    if (dirP) dirP.textContent = datosCliente.direccionTexto || "Sin dirección especificada";
+    if (avatarBox)
+        avatarBox.textContent = datosCliente.iniciales || 'CL';
+    if (tituloSidebar)
+        tituloSidebar.textContent = datosCliente.razonSocial || 'Cliente Granja Pollón';
+    if (userBadge)
+        userBadge.textContent = datosCliente.perfil || datosCliente.badge || 'Cliente Mayorista';
 
     // Actualizar estados financieros si se muestran en la vista de créditos
     const kpiMontos = document.querySelectorAll('.fin-box strong');
@@ -107,21 +72,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Lógica del botón de guardado en Perfil
+    // Lógica del botón de guardado en Perfil (Datos y Dirección)
     const formDatos = document.getElementById('form-datos');
     if (formDatos) {
         formDatos.addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = formDatos.querySelector('.btn-guardar');
             const originalText = btn.textContent;
-            
+
             btn.textContent = 'Guardando...';
             btn.style.opacity = '0.7';
+
+            // Actualizar los valores actuales
+            datosCliente.razonSocial = inputRazon ? inputRazon.value.trim() : datosCliente.razonSocial;
+            datosCliente.correo = inputCorreo ? inputCorreo.value.trim() : datosCliente.correo;
+            datosCliente.telefono = inputTelefono ? inputTelefono.value.trim() : datosCliente.telefono;
+
+            if (inputDirPrincipal)
+                datosCliente.direccionPrincipal = inputDirPrincipal.value.trim();
+            if (inputDirTexto)
+                datosCliente.direccionTexto = inputDirTexto.value.trim();
+
+            // Guardar de vuelta manteniendo la estructura que espera el sistema
+            if (PERFILES_DB[usuarioId] && PERFILES_DB[usuarioId].datos) {
+                PERFILES_DB[usuarioId].datos = datosCliente;
+            } else {
+                PERFILES_DB[usuarioId] = datosCliente;
+            }
+
+            localStorage.setItem('gp_usuarios_registrados', JSON.stringify(PERFILES_DB));
 
             setTimeout(() => {
                 btn.textContent = '¡Cambios Guardados!';
                 btn.style.backgroundColor = '#276749';
-                
+
+                if (tituloSidebar && inputRazon) {
+                    tituloSidebar.textContent = inputRazon.value;
+                }
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.style.backgroundColor = '';

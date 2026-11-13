@@ -1,5 +1,5 @@
 /* ============================================================
-   GRANJA POLLÓN — Afiliacion.js (Actualizado)
+   GRANJA POLLÓN — Afiliacion.js 
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'username':
                 return setFieldError(input, v.length >= 3 ? '' : 'Ingrese un nombre de usuario válido.');
             case 'password':
-                return setFieldError(input, v.length >= 8 ? '' : 'Mínimo 8 caracteres.');
+                return setFieldError(input, v.length >= 6 ? '' : 'Mínimo 6 caracteres.');
             case 'password_confirm':
                 if (!v) return setFieldError(input, 'Confirme su contraseña.');
                 return setFieldError(input, v === pwInput.value ? '' : 'Las contraseñas no coinciden.');
@@ -171,10 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             telefono: `+51 ${datos.telefono}`,
             iniciales: datos.nombre.substring(0, 2).toUpperCase(),
             direccionPrincipal: "Punto de Despacho Principal",
-            direccionTexto: datos.direccion,
-            creditoAprobado: "S/ 30,000.00",
-            creditoUtilizado: "S/ 0.00",
-            creditoDisponible: "S/ 30,000.00"
+            direccionTexto: datos.direccion
         };
 
         let baseUsuarios = JSON.parse(localStorage.getItem('gp_usuarios_registrados')) || {};
