@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mi Perfil - Granja Pollón</title>
+        <title>Mi Perfil - Granja Pollón B2B</title>
         <link href="Perfil.css" rel="stylesheet" type="text/css"/>
         <script src="Perfil.js" defer></script>
     </head>
@@ -12,14 +12,13 @@
         <!-- HEADER -->
         <header class="header">
             <div class="wrap header-content">
-                <a href="Home.html" class="logo">Granja <strong>Pollón</strong> <span>B2B</span></a>
+                <a href="../Home/Home.html" class="logo">Granja <strong>Pollón</strong> <span>B2B</span></a>
 
                 <nav class="nav" id="nav-dashboard">
-                    <a href="../Home/Home.html" >Hacer Pedido</a>
+                    <a href="../Home/Home.html">Hacer Pedido</a>
                     <a href="../Historial/Historial.html">Historial</a>
                     <a href="../Perfil/Perfil.html" class="active">Mi Perfil</a>             
                     <a href="../Contacto/Contactos.html">SOPORTE</a>
-                   
                 </nav>
 
                 <div class="user-box">
@@ -28,15 +27,14 @@
                         <strong class="user-name">Distribuidora Avícola Lima</strong>
                         <small class="user-role">RUC: 20601234567</small>
                     </div>
-
-                    <button class="btn-salir" id="btn-logout"  title="Salir">✕</button>
+                    <button class="btn-salir" id="btn-logout" title="Cerrar Sesión">✕</button>
                 </div>
             </div>
         </header>
 
-
         <!-- CONTENIDO PERFIL -->
         <main class="container profile-container">
+            
             <!-- Sidebar de usuario -->
             <aside class="profile-sidebar">
                 <div class="profile-avatar-box">
@@ -45,57 +43,74 @@
                     <span class="user-badge">Cliente Mayorista Plus</span>
                 </div>
                 <nav class="profile-menu">
-                    <a href="#datos" class="menu-item active">Datos Empresa / Personales</a>
-
+                    <a href="#datos" class="menu-item active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        Datos y Ubicación
+                    </a>
+                </nav>
             </aside>
 
             <!-- Formularios y Secciones -->
             <section class="profile-content">
-
-                <!-- DATOS GENERALES -->
-                <div class="card-section" id="datos">
-                    <h2>Información de la Cuenta</h2>
-                    <form id="form-datos">
+                <form id="form-datos">
+                    
+                    <!-- DATOS GENERALES -->
+                    <div class="card-section" id="datos">
+                        <div class="section-header">
+                            <h2>Información de la Cuenta</h2>
+                            <p>Actualice los datos de contacto principales de su empresa.</p>
+                        </div>
+                        
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="razon-social">Razón Social / Nombre Completo</label>
-                                <input type="text" id="razon-social" value="Distribuidora Avícola Lima S.A.C.">
+                                <input type="text" id="razon-social" value="Distribuidora Avícola Lima S.A.C." required>
                             </div>
                             <div class="form-group">
-                                <label for="ruc">RUC / DNI</label>
+                                <label for="ruc">RUC / DNI <span class="badge-locked">Bloqueado</span></label>
                                 <input type="text" id="ruc" value="20601234567" readonly disabled>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo Electrónico</label>
-                                <input type="email" id="correo" value="ventas@avicolalima.pe">
+                                <input type="email" id="correo" value="ventas@avicolalima.pe" required>
                             </div>
                             <div class="form-group">
                                 <label for="telefono">Teléfono / WhatsApp de Pedidos</label>
-                                <input type="tel" id="telefono" value="+51 987 654 321">
+                                <input type="tel" id="telefono" value="+51 987 654 321" required>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- DIRECCIONES DE ENTREGA -->
-                        <div class="card-section" id="direcciones">
+                    <!-- DIRECCIONES DE ENTREGA -->
+                    <div class="card-section" id="direcciones">
+                        <div class="section-header">
                             <h2>Puntos de Despacho (Descarga)</h2>
-                            <div class="address-list">
-                                <div class="address-item" style="display: flex; flex-direction: column; gap: 10px;">
-                                    <div class="form-group" style="width: 100%;">
-                                        <label for="dir-principal">Nombre del Local / Referencia</label>
-                                        <input type="text" id="dir-principal" value="Camal Municipal Santa Anita - Stand 14">
-                                    </div>
-                                    <div class="form-group" style="width: 100%;">
-                                        <label for="dir-texto">Dirección Exacta</label>
-                                        <input type="text" id="dir-texto" value="Av. Rosa Toro 123, Santa Anita, Lima">
-                                    </div>
-                                    <span class="tag-primary" style="align-self: flex-start;">Principal</span>
+                            <p>Dirección registrada para la recepción de envíos avícolas.</p>
+                        </div>
+
+                        <div class="address-card">
+                            <div class="address-badge-wrapper">
+                                <span class="tag-primary">Principal</span>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="dir-principal">Nombre del Local / Referencia</label>
+                                    <input type="text" id="dir-principal" value="Camal Municipal Santa Anita - Stand 14" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dir-texto">Dirección Exacta</label>
+                                    <input type="text" id="dir-texto" value="Av. Rosa Toro 123, Santa Anita, Lima" required>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn-guardar">Guardar Cambios</button>
-                    </form>
-                </div>
+                    </div>
 
+                    <!-- BOTÓN DE ACCIÓN FLOTANTE / INFERIOR -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                    </div>
+
+                </form>
             </section>
         </main>
 
