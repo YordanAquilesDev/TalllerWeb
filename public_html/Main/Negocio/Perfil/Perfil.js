@@ -1,5 +1,5 @@
 /* ============================================================
-   GRANJA POLLÓN — Perfil.js
+   GRANJA POLLÓN — Perfil.js 
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -12,11 +12,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Obtenemos el registro bruto del usuario
     const registroUsuario = PERFILES_DB[usuarioId] || PERFILES_DB["U123"];
 
-    // Si los datos están anidados en .datos (provenientes de Afiliacion.js), los unificamos o extraemos
+    // Si los datos están anidados en .datos (provenientes de Afiliacion.js), los unificamos
     let datosCliente = {};
     if (registroUsuario) {
         datosCliente = registroUsuario.datos ? { ...registroUsuario.datos, password: registroUsuario.password, perfil: registroUsuario.perfil } : registroUsuario;
     }
+
+   
+    document.querySelectorAll('#nav-dashboard a, .nav a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+            // Limpiamos cualquier parámetro anterior y añadimos el usuario actual
+            const baseUrl = href.split('?')[0];
+            link.href = `${baseUrl}?usuario=${encodeURIComponent(usuarioId)}`;
+        }
+    });
+
+
+    const headerNombre = document.querySelector('.header .user-name');
+    const headerRuc = document.querySelector('.header .user-role');
+    const headerAvatar = document.querySelector('.header .user-avatar');
+
+    if (headerNombre) headerNombre.textContent = datosCliente.razonSocial || 'Cliente Granja Pollón';
+    if (headerRuc) headerRuc.textContent = `RUC: ${datosCliente.ruc || 'Sin RUC'}`;
+    if (headerAvatar) headerAvatar.textContent = datosCliente.iniciales || 'DA';
 
     // Referencias de inputs del perfil general
     const inputRazon = document.getElementById('razon-social');
@@ -45,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputDirTexto.value = datosCliente.direccionTexto || "";
 
     // Actualizar elementos visuales del Sidebar
-    const avatarBox = document.querySelector('.avatar-placeholder');
+    const avatarBox = document.querySelector('.profile-sidebar .avatar-placeholder');
     const tituloSidebar = document.querySelector('.profile-avatar-box h3');
     const userBadge = document.querySelector('.user-badge');
 
@@ -55,22 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tituloSidebar.textContent = datosCliente.razonSocial || 'Cliente Granja Pollón';
     if (userBadge)
         userBadge.textContent = datosCliente.perfil || datosCliente.badge || 'Cliente Mayorista';
-
-    // Actualizar estados financieros si se muestran en la vista de créditos
-    const kpiMontos = document.querySelectorAll('.fin-box strong');
-    if (kpiMontos.length >= 3) {
-        kpiMontos[0].textContent = datosCliente.creditoAprobado || "S/ 30,000.00";
-        kpiMontos[1].textContent = datosCliente.creditoUtilizado || "S/ 0.00";
-        kpiMontos[2].textContent = datosCliente.creditoDisponible || "S/ 30,000.00";
-    }
-
-    // Propagar el parámetro ?usuario= en los enlaces del menú superior
-    document.querySelectorAll('.nav-dashboard a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.includes('Contactos')) {
-            link.href = `${href.split('?')[0]}?usuario=${usuarioId}`;
-        }
-    });
 
     // Lógica del botón de guardado en Perfil (Datos y Dirección)
     const formDatos = document.getElementById('form-datos');
@@ -108,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (tituloSidebar && inputRazon) {
                     tituloSidebar.textContent = inputRazon.value;
+                }
+                if (headerNombre && inputRazon) {
+                    headerNombre.textContent = inputRazon.value;
                 }
 
                 setTimeout(() => {
