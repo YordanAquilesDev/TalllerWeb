@@ -15,8 +15,97 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     --text-dark: #1a202c;
     --text-muted: #718096;
     --border-color: #e2e8f0;
+     --bg: #F8FAFC;
+    --white: #FFFFFF;
+    --dark: #0F172A;
+    --muted: #64748B;
+    --border: #E2E8F0;
+    --primary: #0F2C59;
+    --accent-pollo: #D80032;
+    --accent-huevo: #D97706;
 }
 
+
+
+/* Header minimalista */
+.header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+}
+.logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.15rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+.logo span {
+    background: var(--dark);
+    color: #F5B301;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.nav a.active, .nav a:hover {
+    color: var(--accent-pollo);
+}
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 1px solid var(--border);
+    padding-left: 15px;
+}
+.user-avatar {
+    width: 34px;
+    height: 34px;
+    background: var(--accent-pollo);
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+.user-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+.user-role {
+    font-size: 0.7rem;
+    color: var(--muted);
+}
+.btn-salir {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1rem;
+    padding: 4px 8px;
+}
 body.dashboard-body {
     background-color: var(--bg-dashboard);
     font-family: 'Segoe UI', system-ui, sans-serif;
